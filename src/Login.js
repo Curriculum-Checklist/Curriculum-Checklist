@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
-import { useAuth } from './contexts/AuthContext'
+import { useAuth, googleSignIn } from './contexts/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
 
 export default function Login() {
@@ -41,6 +41,9 @@ export default function Login() {
                     </Form.Group>
                     <Button disabled={loading} className="w-100 text-center mt-3" type="submit">
                         Log In
+                    </Button>
+                    <Button className="w-100 text-center mt-3" onClick={googleSignIn}>
+                        Google Sign In
                     </Button>
                 </Form>
             </Card.Body>

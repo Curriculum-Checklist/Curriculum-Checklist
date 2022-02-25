@@ -8,6 +8,15 @@ export function useAuth() {
     return useContext(AuthContext)
 }
 
+const google_provider = new GoogleAuthProvider
+
+export const googleSignIn = () => {
+    signInWithPopup(auth,google_provider)
+    .then((result) => {
+    }).catch((error) => {
+    })
+}
+
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
