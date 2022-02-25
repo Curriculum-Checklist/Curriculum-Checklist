@@ -18,7 +18,7 @@ function App() {
         <Router>
           <AuthProvider>
             <Routes>
-            <Route path="/signup" element={<Signup/>} />
+              <Route path="/signup" element={<Signup/>} />
               <Route path="/login" element={<Login/>} />
               <Route exact path = "/" element = {<Signedin/>} />
             </Routes>

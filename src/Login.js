@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { useAuth } from './contexts/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
+import { getAuth } from 'firebase/auth'
 
 export default function Login() {
     const emailRef = useRef()
@@ -27,12 +28,20 @@ export default function Login() {
 
     async function googleSubmit(e) {
         e.preventDefault()
-
+        
         try{
             setError("")
             setLoading(true)
-            await googleSignIn
-            go_to("/")
+
+            const auth = getAuth()
+            const user = auth.currentUser
+            if (user) {
+                console.log("USER SIGNED IN")
+                go_to("/")
+            } else {
+                await googleSignIn
+            }
+            
         } catch {
             setError('Failed to sign in')
         }
