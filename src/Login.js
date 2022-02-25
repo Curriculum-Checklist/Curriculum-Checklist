@@ -1,12 +1,13 @@
 import React, { useRef, useState } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
-import { useAuth, googleSignIn } from './contexts/AuthContext'
+import { useAuth } from './contexts/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
 
 export default function Login() {
     const emailRef = useRef()
     const passwordRef = useRef()
     const {login} = useAuth()
+    const {googleSignIn} = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const go_to = useNavigate()
@@ -18,6 +19,19 @@ export default function Login() {
             setError("")
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
+            go_to("/")
+        } catch {
+            setError('Failed to sign in')
+        }
+    }
+
+    async function googleSubmit(e) {
+        e.preventDefault()
+
+        try{
+            setError("")
+            setLoading(true)
+            await googleSignIn
             go_to("/")
         } catch {
             setError('Failed to sign in')
@@ -42,7 +56,10 @@ export default function Login() {
                     <Button disabled={loading} className="w-100 text-center mt-3" type="submit">
                         Log In
                     </Button>
-                    <Button className="w-100 text-center mt-3" onClick={googleSignIn}>
+
+                </Form>
+                <Form onSubmit={googleSubmit} >
+                    <Button className="w-100 text-center text-white mt-3 bg-dark btn-outline-dark" onClick={googleSignIn} type = "submit">
                         Google Sign In
                     </Button>
                 </Form>
