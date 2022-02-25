@@ -23,7 +23,7 @@ export default function Signedin() {
     <>
       <Card>
         <Card.Body>
-            <h2 className="text-center mb-3">You are Signed In (TESTING)</h2>
+            <h2 className="text-center mb-3">SIGN IN TEST</h2>
             {error && <Alert variant = "danger">{error}</Alert>}
 
         </Card.Body>
