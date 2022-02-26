@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { Form, Button, Card, Alert } from 'react-bootstrap'
 import { useAuth } from './contexts/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
-import { getAuth } from 'firebase/auth'
+import GoogleButton from 'react-google-button'
 
 export default function Login() {
     const emailRef = useRef()
@@ -29,22 +29,12 @@ export default function Login() {
     async function googleSubmit(e) {
         e.preventDefault()
         
-        try{
-            setError("")
-            setLoading(true)
-
-            const auth = getAuth()
-            const user = auth.currentUser
-            if (user) {
-                console.log("USER SIGNED IN")
-                go_to("/")
-            } else {
-                await googleSignIn
-            }
-            
-        } catch {
-            setError('Failed to sign in')
-        }
+        try {
+            await googleSignIn();
+            go_to("/");
+          } catch (error) {
+            console.log(error.message);
+          }
     }
 
     return (
@@ -68,9 +58,7 @@ export default function Login() {
 
                 </Form>
                 <Form onSubmit={googleSubmit} >
-                    <Button className="w-100 text-center text-white mt-3 bg-dark btn-outline-dark" onClick={googleSignIn} type = "submit">
-                        Google Sign In
-                    </Button>
+                    <GoogleButton className = "w-100 text-center mt-3 g-btn" type = "dark" onClick={googleSubmit} />
                 </Form>
             </Card.Body>
         </Card>
