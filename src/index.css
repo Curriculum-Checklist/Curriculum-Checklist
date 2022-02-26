@@ -1,6 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800&family=Rouge+Script&display=swap');
+
+:root {
+  /*? COLOR THEME  */
+
+  /** For background */
+  --gray-1: #36393F;
+
+  /** For sem_card_background */
+  --gray-2: #292B2F;
+
+  /** For add_sem_card_background, gwa_right_gradient, sidebar_right_gradient */
+  --gray-3: #1C1E21;
+
+  /** For login_bottom_overlay_shape */
+  --gray-4: #17191C;
+
+  /** For gwa_left_gradient, sidebar_left_gradient */
+  --gray-5: #0B0C0F;
+
+
+  /** Base Theme Colors*/
+  --white: #EFEEED;
+  --red: #BD2148;
+  --yellow: #F3CA3E;
+  --green: #3BA55D;
+  --ocean-blue: #0E8A97;
+
+  /** For course_theme_colors, GWA_card*/
+  --red-theme: #FF3366;
+  --yellow-theme: #F3CA3E;
+  --green-theme: #2AC940;
+  --blue-theme: #3399FF;
+  --orange-theme: #FF9933;
+
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
