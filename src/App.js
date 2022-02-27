@@ -15,8 +15,7 @@ function App() {
         <img src={createButton}
         alt = "Create my Curriculum"
         onClick ={() => setShow(true)}/> 
-      <Modal title = "Create a New Curriculum" onClose = {() => setShow(false)} show = {show}>
-        <p> Please add form content here tysm :3 </p>  
+      <Modal title = "Create a New Curriculum" onClose = {() => setShow(false)} show = {show}>   
       </Modal>
     </div>
   );
