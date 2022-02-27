@@ -1,4 +1,4 @@
-.modal{
+.mymodal {
     position: fixed;
     left: 0;
     right: 0;
@@ -12,32 +12,37 @@
     transition: all 0.5s ease-in-out;
     pointer-events: none;
 }
-.modal.show{
-    opacity:1;
+
+.mymodal.show {
+    opacity: 1;
     pointer-events: visible;
 }
-.modalContent{
+
+.modalContent {
     width: 500px;
-    background-color:#fff;
+    background-color: #fff;
     transform: translateY(-800px);
     transition: all 0.5s ease-in-out;
 }
 
-.modal.show .modalContent{
-    transform:translateY(0);
+.mymodal.show .modalContent {
+    transform: translateY(0);
 }
 
-.modalTitle{
-    margin:0;
+.modalTitle {
+    margin: 0;
 }
-.modalHeader, .modalFooter{
+
+.modalHeader,
+.modalFooter {
     display: flex;
     justify-content: space-between;
     padding: 15px;
     text-align: center;
     margin: auto;
 }
-.modalBody{
+
+.modalBody {
     padding: 15px;
     border-top: 1px solid #EEE;
     border-bottom: 1px solid #EEE;
