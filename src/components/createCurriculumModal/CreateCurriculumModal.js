@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { useAuth } from '../../contexts/AuthContext';
 import { useFirestore } from '../../contexts/FirestoreContext';
 import Curriculum from '../../classes/curriculum';
+import { LocalStorageHelper } from '../../classes/localStorageHelper';
 
 const CreateCurriculumModal = (props) => {
 	const [curriculumtitle, setCurriculumtitle] = useState('');
@@ -14,7 +15,9 @@ const CreateCurriculumModal = (props) => {
 
 	const onSubmitCurriculum = (e) => {
 		e.preventDefault();
-		firestoreHelper.setCurriculum(currentUser.uid, new Curriculum(curriculumtitle, programname, schoolname, []));
+		const newCurriculum = new Curriculum(curriculumtitle, programname, schoolname, []);
+		firestoreHelper.setCurriculum(currentUser.uid, newCurriculum);
+		LocalStorageHelper.set('curriculum', newCurriculum);
 		props.setShowCreateCurriculumModal(false);
 	};
 

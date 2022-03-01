@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import createButtonImg from '../button_create.png';
@@ -8,7 +8,7 @@ import { useAuth } from '../contexts/AuthContext';
 export default function Dashboard() {
 	const [error, setError] = useState('');
 	const [showCreateCurriculumModal, setShowCreateCurriculumModal] = useState(false);
-	const { currentUser, logout } = useAuth();
+	const { logout } = useAuth();
 	const go_to = useNavigate();
 
 	async function handleLogout() {
