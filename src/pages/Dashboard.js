@@ -38,7 +38,7 @@ export default function Dashboard() {
 				/>
 				<CreateCurriculumModal
 					title='Create a New Curriculum'
-					onClose={() => setShowCreateCurriculumModal(false)}
+					setShowCreateCurriculumModal={setShowCreateCurriculumModal}
 					show={showCreateCurriculumModal}
 				/>
 			</div>

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import { useAuth } from '../../contexts/AuthContext';
 import { useFirestore } from '../../contexts/FirestoreContext';
+import Curriculum from '../../classes/curriculum';
 
 const CreateCurriculumModal = (props) => {
 	const [curriculumtitle, setCurriculumtitle] = useState('');
@@ -13,12 +14,16 @@ const CreateCurriculumModal = (props) => {
 
 	const onSubmitCurriculum = (e) => {
 		e.preventDefault();
-		console.log(currentUser.uid);
-		firestoreHelper.setCurriculum(currentUser.uid);
+		firestoreHelper.setCurriculum(currentUser.uid, new Curriculum(curriculumtitle, programname, schoolname, []));
+		props.setShowCreateCurriculumModal(false);
+	};
+
+	const close = (e) => {
+		props.setShowCreateCurriculumModal(false);
 	};
 
 	return (
-		<div onClick={props.onClose} className={clsx('what', styles.modal, props.show && styles.show)}>
+		<div onClick={close} className={clsx('what', styles.modal, props.show && styles.show)}>
 			<div onClick={(e) => e.stopPropagation()} className={styles.modalContent}>
 				<div className={styles.modalHeader}>
 					<h4 className={styles.modalTitle}> {props.title} </h4>
@@ -51,11 +56,11 @@ const CreateCurriculumModal = (props) => {
 					</form>
 				</div>
 				<div className={styles.modalFooter}>
+					<button onClick={close} className={styles.cancelButton}>
+						Cancel
+					</button>
 					<button onClick={onSubmitCurriculum} className={styles.submitButton}>
 						Submit
-					</button>
-					<button onClick={props.onClose} className={styles.cancelButton}>
-						Cancel
 					</button>
 				</div>
 			</div>

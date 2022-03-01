@@ -6,6 +6,6 @@ export class FirestoreHelper {
 	}
 
 	async setCurriculum(id, curriculum) {
-		await setDoc(doc(this.db, 'users', id), curriculum);
+		await setDoc(doc(this.db, 'users', id), curriculum.toFirestore());
 	}
 }

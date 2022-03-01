@@ -5,4 +5,13 @@ export default class Curriculum {
 		this.schoolName = schoolName;
 		this.semesters = semesters;
 	}
+
+	toFirestore() {
+		return {
+			title: this.title,
+			programName: this.programName,
+			schoolName: this.schoolName,
+			semesters: this.semesters.map((semester) => semester.toFirestore()),
+		};
+	}
 }

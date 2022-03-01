@@ -6,4 +6,14 @@ export default class Course {
 		this.status = status;
 		this.grade = grade;
 	}
+
+	toFirestore() {
+		return {
+			code: this.code,
+			title: this.title,
+			units: this.units,
+			status: this.status,
+			grade: this.grade,
+		};
+	}
 }
