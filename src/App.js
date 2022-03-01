@@ -1,11 +1,12 @@
 import React from 'react';
-import './App.css';
 import { Container } from 'react-bootstrap';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './contexts/AuthContext';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Signup from './pages/Signup';
-import Login from './pages/Login';
+import { FirestoreProvider } from './contexts/FirestoreContext';
 import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 function App() {
 	return (
@@ -13,11 +14,15 @@ function App() {
 			<div className='w-100' style={{ maxWidth: '400px' }}>
 				<Router>
 					<AuthProvider>
-						<Routes>
-							<Route path='/signup' element={<Signup />} />
-							<Route path='/login' element={<Login />} />
-							<Route exact path='/' element={<Dashboard />} />
-						</Routes>
+						<FirestoreProvider>
+							<Routes>
+								<Route path='/signup' element={<Signup />} />
+								<Route path='/login' element={<Login />} />
+								<Route path='/' element={<PrivateRoute />}>
+									<Route path='/' element={<Dashboard />} />
+								</Route>
+							</Routes>
+						</FirestoreProvider>
 					</AuthProvider>
 				</Router>
 			</div>

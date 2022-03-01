@@ -1,14 +1,32 @@
-import styles from './modal.module.css';
+import styles from './CreateCurriculumModal.module.css';
 import React, { useState } from 'react';
 import clsx from 'clsx';
+import { useAuth } from '../../contexts/AuthContext';
+import { useFirestore } from '../../contexts/FirestoreContext';
+import Curriculum from '../../classes/curriculum';
+import { LocalStorageHelper } from '../../classes/localStorageHelper';
 
-const Modal = (props) => {
+const CreateCurriculumModal = (props) => {
 	const [curriculumtitle, setCurriculumtitle] = useState('');
 	const [programname, setProgramname] = useState('');
 	const [schoolname, setSchoolname] = useState('');
+	const { currentUser } = useAuth();
+	const { firestoreHelper } = useFirestore();
+
+	const onSubmitCurriculum = (e) => {
+		e.preventDefault();
+		const newCurriculum = new Curriculum(curriculumtitle, programname, schoolname, []);
+		firestoreHelper.setCurriculum(currentUser.uid, newCurriculum);
+		LocalStorageHelper.set('curriculum', newCurriculum);
+		props.setShowCreateCurriculumModal(false);
+	};
+
+	const close = (e) => {
+		props.setShowCreateCurriculumModal(false);
+	};
 
 	return (
-		<div onClick={props.onClose} className={clsx('what', styles.modal, props.show && styles.show)}>
+		<div onClick={close} className={clsx('what', styles.modal, props.show && styles.show)}>
 			<div onClick={(e) => e.stopPropagation()} className={styles.modalContent}>
 				<div className={styles.modalHeader}>
 					<h4 className={styles.modalTitle}> {props.title} </h4>
@@ -41,9 +59,11 @@ const Modal = (props) => {
 					</form>
 				</div>
 				<div className={styles.modalFooter}>
-					<button className={styles.submitButton}>Submit</button>
-					<button onClick={props.onClose} className={styles.cancelButton}>
+					<button onClick={close} className={styles.cancelButton}>
 						Cancel
+					</button>
+					<button onClick={onSubmitCurriculum} className={styles.submitButton}>
+						Submit
 					</button>
 				</div>
 			</div>
@@ -51,4 +71,4 @@ const Modal = (props) => {
 	);
 };
 
-export default Modal;
+export default CreateCurriculumModal;

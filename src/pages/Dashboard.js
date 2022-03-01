@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Button, Card, Alert } from 'react-bootstrap';
-import { useAuth } from './contexts/AuthContext';
+import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import Modal from './components/modal/modal';
-import createButtonImg from './button_create.png';
+import createButtonImg from '../button_create.png';
+import CreateCurriculumModal from '../components/createCurriculumModal/CreateCurriculumModal';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Dashboard() {
 	const [error, setError] = useState('');
-	const [show, setShow] = useState(false);
+	const [showCreateCurriculumModal, setShowCreateCurriculumModal] = useState(false);
 	const { logout } = useAuth();
 	const go_to = useNavigate();
 
@@ -21,18 +21,26 @@ export default function Dashboard() {
 			setError('Failed to log out');
 		}
 	}
-
+	//TODO - use dropdown to notify user on failed logout
 	return (
 		<>
-			<Card>
+			{/* <Card>
 				<Card.Body>
 					<h2 className='text-center mb-3'>SIGN IN TEST</h2>
 					{error && <Alert variant='danger'>{error}</Alert>}
 				</Card.Body>
-			</Card>
+			</Card> */}
 			<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-				<img src={createButtonImg} alt='Create my Curriculum' onClick={() => setShow(true)} />
-				<Modal title='Create a New Curriculum' onClose={() => setShow(false)} show={show}></Modal>
+				<img
+					src={createButtonImg}
+					alt='Create my Curriculum'
+					onClick={() => setShowCreateCurriculumModal(true)}
+				/>
+				<CreateCurriculumModal
+					title='Create a New Curriculum'
+					setShowCreateCurriculumModal={setShowCreateCurriculumModal}
+					show={showCreateCurriculumModal}
+				/>
 			</div>
 			<div className='w-100 text-center mt-2'>
 				<Button variant='link' onClick={handleLogout}>
