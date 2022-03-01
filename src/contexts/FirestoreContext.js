@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { FirestoreHelper } from '../classes/FirestoreHelper';
+import { FirestoreHelper } from '../classes/firestoreHelper';
 import { db } from '../firebase';
 
 const FirestoreContext = React.createContext();

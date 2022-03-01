@@ -2,16 +2,19 @@ import styles from './CreateCurriculumModal.module.css';
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import { useAuth } from '../../contexts/AuthContext';
+import { useFirestore } from '../../contexts/FirestoreContext';
 
 const CreateCurriculumModal = (props) => {
 	const [curriculumtitle, setCurriculumtitle] = useState('');
 	const [programname, setProgramname] = useState('');
 	const [schoolname, setSchoolname] = useState('');
 	const { currentUser } = useAuth();
+	const { firestoreHelper } = useFirestore();
 
 	const onSubmitCurriculum = (e) => {
 		e.preventDefault();
 		console.log(currentUser.uid);
+		firestoreHelper.setCurriculum(currentUser.uid);
 	};
 
 	return (
