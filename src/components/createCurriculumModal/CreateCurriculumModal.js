@@ -1,11 +1,18 @@
-import styles from './modal.module.css';
+import styles from './CreateCurriculumModal.module.css';
 import React, { useState } from 'react';
 import clsx from 'clsx';
+import { useAuth } from '../../contexts/AuthContext';
 
-const Modal = (props) => {
+const CreateCurriculumModal = (props) => {
 	const [curriculumtitle, setCurriculumtitle] = useState('');
 	const [programname, setProgramname] = useState('');
 	const [schoolname, setSchoolname] = useState('');
+	const { currentUser } = useAuth();
+
+	const onSubmitCurriculum = (e) => {
+		e.preventDefault();
+		console.log(currentUser.uid);
+	};
 
 	return (
 		<div onClick={props.onClose} className={clsx('what', styles.modal, props.show && styles.show)}>
@@ -41,7 +48,9 @@ const Modal = (props) => {
 					</form>
 				</div>
 				<div className={styles.modalFooter}>
-					<button className={styles.submitButton}>Submit</button>
+					<button onClick={onSubmitCurriculum} className={styles.submitButton}>
+						Submit
+					</button>
 					<button onClick={props.onClose} className={styles.cancelButton}>
 						Cancel
 					</button>
@@ -51,4 +60,4 @@ const Modal = (props) => {
 	);
 };
 
-export default Modal;
+export default CreateCurriculumModal;
