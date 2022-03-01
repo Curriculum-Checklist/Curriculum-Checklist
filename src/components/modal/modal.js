@@ -1,4 +1,6 @@
+import styles from './modal.module.css';
 import React, { useState } from 'react';
+import clsx from 'clsx';
 
 const Modal = (props) => {
 	const [curriculumtitle, setCurriculumtitle] = useState('');
@@ -6,13 +8,13 @@ const Modal = (props) => {
 	const [schoolname, setSchoolname] = useState('');
 
 	return (
-		<div onClick={props.onClose} className={`mymodal ${props.show ? 'show' : ''}`}>
-			<div onClick={(e) => e.stopPropagation()} className='modalContent'>
-				<div className='modalHeader'>
-					<h4 className='modalTitle'> {props.title} </h4>
+		<div onClick={props.onClose} className={clsx('what', styles.modal, props.show && styles.show)}>
+			<div onClick={(e) => e.stopPropagation()} className={styles.modalContent}>
+				<div className={styles.modalHeader}>
+					<h4 className={styles.modalTitle}> {props.title} </h4>
 				</div>
 
-				<div className='modalBody'>
+				<div className={styles.modalBody}>
 					{props.children}
 					<form>
 						<label>Curriculum Title:</label>
@@ -38,9 +40,9 @@ const Modal = (props) => {
 						/>
 					</form>
 				</div>
-				<div className='modalFooter'>
-					<button className='submitButton'>Submit</button>
-					<button onClick={props.onClose} className='cancelButton'>
+				<div className={styles.modalFooter}>
+					<button className={styles.submitButton}>Submit</button>
+					<button onClick={props.onClose} className={styles.cancelButton}>
 						Cancel
 					</button>
 				</div>

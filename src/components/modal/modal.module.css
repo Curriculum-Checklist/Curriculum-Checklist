@@ -1,4 +1,4 @@
-.mymodal {
+.modal {
     position: fixed;
     left: 0;
     right: 0;
@@ -13,7 +13,7 @@
     pointer-events: none;
 }
 
-.mymodal.show {
+.show {
     opacity: 1;
     pointer-events: visible;
 }
@@ -25,7 +25,7 @@
     transition: all 0.5s ease-in-out;
 }
 
-.mymodal.show .modalContent {
+.show .modalContent {
     transform: translateY(0);
 }
 
