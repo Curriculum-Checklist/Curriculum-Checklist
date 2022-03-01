@@ -24,7 +24,10 @@
   --red: #BD2148;
   --yellow: #F3CA3E;
   --green: #3BA55D;
+  --blue: #5865F2;
+  --dark-blue: #323fc5;
   --ocean-blue: #0E8A97;
+  --light-gray: #B9A7A5;
 
   /** For course_theme_colors, GWA_card*/
   --red-theme: #FF3366;
@@ -42,9 +45,28 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--gray-1);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+/*! EXTERNAL LIBRARIES*/
+.form-control {
+  background-color: transparent;
+  color: var(--white);
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  border: 2px solid #808080;
+}
+
+.form-control:focus {
+  background-color: transparent;
+  border: 2px solid rgba(51, 146, 255, 0.124);
+  outline: none !important;
+  color: var(--white);
 }

@@ -3,6 +3,9 @@ import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import GoogleButton from 'react-google-button';
+import SignInWrapper from '../components/SignInWrapper';
+import styles from '../styles/SignIn.module.css';
+import clsx from 'clsx';
 
 export default function Login() {
 	const emailRef = useRef();
@@ -38,32 +41,36 @@ export default function Login() {
 	}
 
 	return (
-		<>
-			<Card>
-				<Card.Body>
-					<h2 className='text-center mb-3'>Log In</h2>
-					{error && <Alert variant='danger'>{error}</Alert>}
-					<Form onSubmit={handleSubmit}>
-						<Form.Group id='email'>
-							<Form.Label>Email</Form.Label>
-							<Form.Control type='email' ref={emailRef} required />
-						</Form.Group>
-						<Form.Group id='password'>
-							<Form.Label>Password</Form.Label>
-							<Form.Control type='password' ref={passwordRef} required />
-						</Form.Group>
-						<Button disabled={loading} className='w-100 text-center mt-3' type='submit'>
-							Log In
-						</Button>
-					</Form>
-					<Form onSubmit={googleSubmit}>
-						<GoogleButton className='w-100 text-center mt-3 g-btn' type='dark' onClick={googleSubmit} />
-					</Form>
-				</Card.Body>
-			</Card>
-			<div className='w-100 text-center mt-2'>
+		<SignInWrapper>
+			<div className={styles.card}>
+				<h2 className='text-center mb-3'>Log In</h2>
+				{error && <Alert variant='danger'>{error}</Alert>}
+				<Form onSubmit={handleSubmit}>
+					<Form.Group id='email'>
+						<Form.Label>Email</Form.Label>
+						<Form.Control type='email' ref={emailRef} required />
+					</Form.Group>
+					<Form.Group id='password'>
+						<Form.Label>Password</Form.Label>
+						<Form.Control type='password' ref={passwordRef} required />
+					</Form.Group>
+					<Button disabled={loading} className={styles.signupButton} type='submit'>
+						Log In
+					</Button>
+				</Form>
+				<h4 className={styles.or}>or</h4>
+				<Form onSubmit={googleSubmit}>
+					<GoogleButton
+						className={clsx('w-100 text-center mt-3 g-btn', styles.googleButton)}
+						type='dark'
+						onClick={googleSubmit}
+					/>
+				</Form>
+			</div>
+
+			<div className={styles.bottomText}>
 				Don't have an account? <Link to='/signup'>Sign Up</Link>
 			</div>
-		</>
+		</SignInWrapper>
 	);
 }

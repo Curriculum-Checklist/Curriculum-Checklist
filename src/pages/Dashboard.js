@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import createButtonImg from '../button_create.png';
-import CreateCurriculumModal from '../components/createCurriculumModal/CreateCurriculumModal';
+import createButtonImg from '../assets/button_create.png';
+import CreateCurriculumModal from '../components/CreateCurriculumModal';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function Dashboard() {
