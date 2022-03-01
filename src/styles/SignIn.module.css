@@ -1,0 +1,46 @@
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-clip: border-box;
+    background-color: transparent;
+    padding: 1rem 1rem;
+    color: var(--white);
+}
+
+.cardHeader {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.signupButton {
+    cursor: pointer;
+    margin-top: 1rem;
+    border-radius: 10px !important;
+    width: 100%;
+    background-color: var(--blue) !important;
+    border: none !important;
+}
+
+.signupButton:active,
+.signupButton:focus {
+    background-color: var(--dark-blue) !important;
+}
+
+.bottomText {
+    text-align: center;
+    margin-top: 0.5rem;
+    width: 100%;
+    color: var(--light-gray);
+}
+
+.googleButton {
+    background-color: var(--blue) !important;
+}
+
+.or {
+    text-align: center;
+    margin-top: 1rem;
+}

@@ -1,10 +1,10 @@
-import styles from './CreateCurriculumModal.module.css';
+import styles from '../styles/CreateCurriculumModal.module.css';
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import { useAuth } from '../../contexts/AuthContext';
-import { useFirestore } from '../../contexts/FirestoreContext';
-import Curriculum from '../../classes/curriculum';
-import { LocalStorageHelper } from '../../classes/localStorageHelper';
+import { useAuth } from '../contexts/AuthContext';
+import { useFirestore } from '../contexts/FirestoreContext';
+import Curriculum from '../classes/curriculum';
+import { LocalStorageHelper } from '../classes/localStorageHelper';
 
 const CreateCurriculumModal = (props) => {
 	const [curriculumtitle, setCurriculumtitle] = useState('');
