@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Button, Card, Alert } from 'react-bootstrap';
 import { useAuth } from './contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import Modal from './modal';
+import Modal from './components/modal/modal';
 import createButtonImg from './button_create.png';
 
-export default function Signedin() {
+export default function Dashboard() {
 	const [error, setError] = useState('');
 	const [show, setShow] = useState(false);
 	const { logout } = useAuth();
