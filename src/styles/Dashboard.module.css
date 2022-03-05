@@ -1,0 +1,27 @@
+.createCurriculumButton {
+    width: 228px;
+    height: 172px;
+    background-color: var(--gray-2);
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    color: var(--ocean-blue);
+    font-size: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+
+.createCurriculumButton:hover {
+    background-color: var(--gray-3);
+    /* transform: translateY(-5px); */
+
+}
+
+.createCurriculumButton h3 {
+    text-align: center;
+    line-height: 1;
+}
