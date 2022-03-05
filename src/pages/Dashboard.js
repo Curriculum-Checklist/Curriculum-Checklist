@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import createButtonImg from '../assets/button_create.png';
 import CreateCurriculumModal from '../components/CreateCurriculumModal';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -31,11 +30,9 @@ export default function Dashboard() {
 				</Card.Body>
 			</Card> */}
 			<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-				<img
-					src={createButtonImg}
-					alt='Create my Curriculum'
-					onClick={() => setShowCreateCurriculumModal(true)}
-				/>
+				<button alt='Create my Curriculum' onClick={() => setShowCreateCurriculumModal(true)}>
+					Create Curriculum
+				</button>
 				<CreateCurriculumModal
 					title='Create a New Curriculum'
 					setShowCreateCurriculumModal={setShowCreateCurriculumModal}

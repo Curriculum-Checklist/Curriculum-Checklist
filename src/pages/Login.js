@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
-import { Form, Button, Card, Alert } from 'react-bootstrap';
-import { useAuth } from '../contexts/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
-import GoogleButton from 'react-google-button';
-import SignInWrapper from '../components/SignInWrapper';
-import styles from '../styles/SignIn.module.css';
 import clsx from 'clsx';
+import React, { useRef, useState } from 'react';
+import { Alert, Button, Form } from 'react-bootstrap';
+import GoogleButton from 'react-google-button';
+import { Link, useNavigate } from 'react-router-dom';
+import SignInWrapper from '../components/SignInWrapper';
+import { useAuth } from '../contexts/AuthContext';
+import styles from '../styles/SignIn.module.css';
 
 export default function Login() {
 	const emailRef = useRef();
