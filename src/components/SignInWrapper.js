@@ -12,7 +12,7 @@ const SignInWrapper = ({ children }) => {
 			<div className={styles.loginBottomPathWrapper}>
 				<img src={loginBottomImg} alt='Login Bottom Path' className={styles.loginBottomPath} />
 			</div>
-			{children}
+			<div className={styles.content}>{children}</div>
 		</div>
 	);
 };
