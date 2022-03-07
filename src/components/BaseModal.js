@@ -9,6 +9,7 @@ const BaseModal = ({
 	onClose,
 	hasCancelButton = false,
 	hasActionButton = false,
+	actionIsSubmit = false,
 	onActionButtonClick,
 	actionButtonText = 'Save',
 	actionButtonColor = 'var(--red)',
@@ -30,8 +31,9 @@ const BaseModal = ({
 					)}
 					{hasActionButton && (
 						<button
-							onClick={onActionButtonClick}
-							className={styles.submitButton}
+							className={styles.actionButton}
+							type={actionIsSubmit ? 'submit' : 'button'}
+							onClick={onActionButtonClick} //! NOTE: use only if actionIsSubmit is false
 							style={{ backgroundColor: actionButtonColor }}>
 							{actionButtonText}
 						</button>
