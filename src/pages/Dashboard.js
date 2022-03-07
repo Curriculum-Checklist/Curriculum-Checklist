@@ -3,6 +3,9 @@ import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import CreateCurriculumModal from '../components/CreateCurriculumModal';
 import { useAuth } from '../contexts/AuthContext';
+import styles from '../styles/Dashboard.module.css';
+import addCircularImg from '../assets/add_circular.svg';
+import clsx from 'clsx';
 
 export default function Dashboard() {
 	const [error, setError] = useState('');
@@ -30,11 +33,14 @@ export default function Dashboard() {
 				</Card.Body>
 			</Card> */}
 			<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-				<button alt='Create my Curriculum' onClick={() => setShowCreateCurriculumModal(true)}>
-					Create Curriculum
-				</button>
+				<div
+					className={clsx(styles.createCurriculumButton, 'unselectable')}
+					alt='Create my Curriculum'
+					onClick={() => setShowCreateCurriculumModal(true)}>
+					<img src={addCircularImg} alt='Add icon' />
+					<h3>Create Curriculum</h3>
+				</div>
 				<CreateCurriculumModal
-					title='Create a New Curriculum'
 					setShowCreateCurriculumModal={setShowCreateCurriculumModal}
 					show={showCreateCurriculumModal}
 				/>
