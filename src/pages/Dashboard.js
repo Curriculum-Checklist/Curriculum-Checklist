@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import CreateCurriculumModal from '../components/CreateCurriculumModal';
+import AddCourseModal from '../components/AddCourseModal'
 import { useAuth } from '../contexts/AuthContext';
 import styles from '../styles/Dashboard.module.css';
 import addCircularImg from '../assets/add_circular.svg';
@@ -10,8 +11,10 @@ import clsx from 'clsx';
 export default function Dashboard() {
 	const [error, setError] = useState('');
 	const [showCreateCurriculumModal, setShowCreateCurriculumModal] = useState(false);
+	const [showAddCourseModal, setShowAddCourseModal] = useState(false);
+
 	const { logout } = useAuth();
-	const go_to = useNavigate();
+	const go_to = useNavigate(); 
 
 	async function handleLogout() {
 		setError('');
@@ -45,6 +48,21 @@ export default function Dashboard() {
 					show={showCreateCurriculumModal}
 				/>
 			</div>
+
+			<div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+				<div
+					className={'unselectable'}
+					alt='Add Course'
+					onClick={() => setShowAddCourseModal(true)}>
+					<img src={addCircularImg} alt='Add icon' />
+					<h3>Create Curriculum</h3>
+				</div>
+				<AddCourseModal
+					setShowAddCourseModal={setShowAddCourseModal}
+					show={showAddCourseModal}
+				/>
+			</div>
+			
 			<div className='w-100 text-center mt-2'>
 				<Button variant='link' onClick={handleLogout}>
 					{' '}
