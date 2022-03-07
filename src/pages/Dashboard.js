@@ -41,7 +41,6 @@ export default function Dashboard() {
 					<h3>Create Curriculum</h3>
 				</div>
 				<CreateCurriculumModal
-					title='Create a New Curriculum'
 					setShowCreateCurriculumModal={setShowCreateCurriculumModal}
 					show={showCreateCurriculumModal}
 				/>
