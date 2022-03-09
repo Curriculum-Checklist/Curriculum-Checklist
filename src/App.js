@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './contexts/AuthContext';
 import { FirestoreProvider } from './contexts/FirestoreContext';
+import Collections from './pages/Collections';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -18,7 +19,8 @@ function App() {
 							<Route path='/signup' element={<Signup />} />
 							<Route path='/login' element={<Login />} />
 							<Route path='/' element={<PrivateRoute />}>
-								<Route path='/' element={<Dashboard />} />
+								<Route path='/' element={<Collections />} />
+								<Route path='/Dashboard' element={<Dashboard />} />
 							</Route>
 						</Routes>
 					</FirestoreProvider>

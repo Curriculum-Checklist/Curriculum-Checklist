@@ -28,7 +28,7 @@ const AddCourseModal = ({ show, setShowAddCourseModal }) => {
 	return (
 		<BaseModal
 			show={show}
-			title={'Add Course'}
+			title={'Course Creator'}
 			hasCancelButton
 			hasActionButton
 			onActionButtonClick={submitCourse}

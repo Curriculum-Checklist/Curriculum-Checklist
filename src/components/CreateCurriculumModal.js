@@ -4,6 +4,7 @@ import { LocalStorageHelper } from '../classes/localStorageHelper';
 import { useAuth } from '../contexts/AuthContext';
 import { useFirestore } from '../contexts/FirestoreContext';
 import BaseModal from './BaseModal';
+import { useNavigate } from 'react-router-dom';
 
 const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal }) => {
 	const [curriculumtitle, setCurriculumtitle] = useState('');
@@ -11,6 +12,7 @@ const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal }) => {
 	const [schoolname, setSchoolname] = useState('');
 	const { currentUser } = useAuth();
 	const { firestoreHelper } = useFirestore();
+	const go_to = useNavigate();
 
 	const submitCurriculum = (e) => {
 		e.preventDefault();
@@ -18,6 +20,7 @@ const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal }) => {
 		firestoreHelper.setCurriculum(currentUser.uid, newCurriculum);
 		LocalStorageHelper.set('curriculum', newCurriculum);
 		setShowCreateCurriculumModal(false);
+		go_to('/Dashboard')
 	};
 
 	const onModalClose = (e) => {
