@@ -4,8 +4,25 @@ import Divider from './Divider';
 import AccountLogo from './sidebarIcons/AccountLogo';
 import CollectionLogo from './sidebarIcons/CollectionLogo';
 import DashboardLogo from './sidebarIcons/DashboardLogo';
+import { useNavigate } from 'react-router-dom'
+import { Button } from 'react-bootstrap';
 
 const Sidebar = () => {
+
+	const go_to = useNavigate();
+
+	function goDashboard(){
+		go_to('/Dashboard');
+	}
+
+	function goCollections(){
+		go_to('/Collections');
+	}
+
+	function goAccounts(){
+		go_to('/Accounts');
+	}
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.logoWrapper}>
@@ -15,14 +32,21 @@ const Sidebar = () => {
 				<Divider />
 			</div>
 			<div className={styles.tabs}>
-				<Tab>
-					<DashboardLogo />
+				<Tab onClick={goDashboard}>
+					<div onClick={goDashboard}>
+						<DashboardLogo />					
+					</div>
+
 				</Tab>
 				<Tab>
-					<CollectionLogo />
+					<div onClick={goCollections}>
+						<CollectionLogo />
+					</div>
 				</Tab>
 				<Tab>
-					<AccountLogo />
+					<div onClick={goAccounts}>
+						<AccountLogo />
+					</div>
 				</Tab>
 			</div>
 		</div>
