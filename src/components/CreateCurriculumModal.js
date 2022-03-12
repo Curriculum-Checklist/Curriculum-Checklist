@@ -24,6 +24,10 @@ const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal }) => {
 	};
 
 	const onModalClose = (e) => {
+		e.preventDefault();
+		setCurriculumtitle('');
+		setProgramname('');
+		setSchoolname('');
 		setShowCreateCurriculumModal(false);
 	};
 

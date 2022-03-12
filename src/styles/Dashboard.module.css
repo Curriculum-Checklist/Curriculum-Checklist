@@ -52,3 +52,33 @@
     padding-top: 12px;
     padding-left: 0px;
 }
+
+.grid {
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
+    grid-template-columns: 185px 185px 185px 185px 185px 185px;
+    grid-gap: 21px;
+    margin-left: 108px;
+}
+
+.semCard {
+    height: 303px;
+    width: 185px;
+    background-color: #292B2F;
+}
+
+.addSemCard {
+    height: 303px;
+    width: 185px;
+    background-color: #292B2F;
+    outline: none;
+    border: none;
+    color: var(--ocean-blue);
+    font-size: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
