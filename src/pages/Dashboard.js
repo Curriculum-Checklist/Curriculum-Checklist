@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import CreateCurriculumModal from '../components/CreateCurriculumModal';
-import AddCourseModal from '../components/AddCourseModal'
 import { useAuth } from '../contexts/AuthContext';
 import styles from '../styles/Dashboard.module.css';
 import addCircularImg from '../assets/add_circular.svg';
 import clsx from 'clsx';
+import SemCard from '../components/SemCard';
 
 export default function Dashboard() {
 	const [error, setError] = useState('');
 	const [showAddCourseModal, setShowAddCourseModal] = useState(false);
+	const [sems, setSems] = useState([]); //List of sems for teting only
 
 	const { logout } = useAuth();
 	const go_to = useNavigate(); 
@@ -25,30 +25,32 @@ export default function Dashboard() {
 			setError('Failed to log out');
 		}
 	}
+	
+	//Need to actually add sem in database
+	const addSem = () => {
+		const newList = sems.concat({})
+		setSems(newList);
+	}
+
 	//TODO - use dropdown to notify user on failed logout
 	return (
 		<>
 
-			<div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-				<div
-					className={clsx(styles.addCourseButton, 'mt-2 unselectable')}
-					alt='Add Course'
-					style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}
-					onClick={() => setShowAddCourseModal(true)}>
-						
+			<div className={clsx(styles.grid)}>
+				{sems.map((sem) => (<SemCard/>))}
+				<div 
+					style={{backgroundColor: 'var(--gray-2)'}} 
+					className={clsx(styles.addSemCard)}
+					onClick={addSem}>
+					
 					<div className={(styles.addCourseIcon)}>
-						<img src={addCircularImg} alt='Add icon' width='24' height ='24' />
-					</div>
+                        <img src={addCircularImg} alt='Add icon' width='71' height ='71' />
+                    </div>
+
 					<div className={(styles.addCourseText)}>
-						<h6>Add Course</h6>
-					</div>
-
+                            <h3>Add Sem</h3>
+                    </div>
 				</div>
-
-				<AddCourseModal
-					setShowAddCourseModal={setShowAddCourseModal}
-					show={showAddCourseModal}
-				/>
 			</div>
 			
 			<div className='w-100 text-center mt-2'>
