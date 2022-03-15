@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LocalStorageHelper } from '../classes/localStorageHelper';
-import { BaseButton } from '../components/BaseButton';
+import BaseButton from '../components/BaseButton';
 import { useAuth } from '../contexts/AuthContext';
 import styles from '../styles/Account.module.css';
 

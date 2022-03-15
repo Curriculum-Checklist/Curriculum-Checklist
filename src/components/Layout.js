@@ -5,10 +5,11 @@ import Sidebar from './Sidebar';
 
 const Layout = ({ children }) => {
 	const location = useLocation();
+	const showSidebar = !['/signup', '/login'].includes(location.pathname);
 	return (
 		<div className={styles.container}>
-			{!['/signup', '/login'].includes(location.pathname) && <Sidebar />}
-			<div>{children}</div>
+			{showSidebar && <Sidebar />}
+			<div className={styles.content}>{children}</div>
 		</div>
 	);
 };

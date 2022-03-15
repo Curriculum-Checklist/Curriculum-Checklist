@@ -1,0 +1,17 @@
+.container {
+    margin: 0 auto;
+    text-align: center;
+    color: var(--white);
+}
+
+.emptyDataImg {
+    width: 90px;
+    /* height: 100px; */
+
+}
+
+
+.subtitle {
+    color: var(--light-gray);
+    line-height: 1;
+}

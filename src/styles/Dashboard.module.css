@@ -1,3 +1,12 @@
+.container {
+    width: 100%;
+}
+
+.saveDiscardButtonsWrapper {
+    display: flex;
+    gap: 25px;
+}
+
 .addSemCard {
     height: 303px;
     width: 185px;
@@ -58,7 +67,7 @@
     /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
     grid-template-columns: 185px 185px 185px 185px 185px 185px;
     grid-gap: 21px;
-    margin-left: 108px;
+    margin-top: 30px;
 }
 
 .semCard {
