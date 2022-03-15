@@ -18,4 +18,12 @@ export class LocalStorageHelper {
 			console.log(e.message);
 		}
 	}
+
+	static clear() {
+		try {
+			this.#STORAGE.clear();
+		} catch (e) {
+			console.log(e.message);
+		}
+	}
 }

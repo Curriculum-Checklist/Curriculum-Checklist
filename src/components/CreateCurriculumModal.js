@@ -12,7 +12,6 @@ const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal }) => {
 	const curriculumTitleInputRef = useRef();
 	const programNameInputRef = useRef();
 	const schoolNameInputRef = useRef();
-	const { currentUser } = useAuth();
 	const { firestoreHelper } = useFirestore();
 	const go_to = useNavigate();
 
@@ -24,11 +23,11 @@ const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal }) => {
 			schoolNameInputRef.current.value,
 			[]
 		);
-		firestoreHelper.setCurriculum(currentUser.uid, newCurriculum);
+		firestoreHelper.setCurriculum(newCurriculum);
 		LocalStorageHelper.set('curriculum', newCurriculum);
 		console.log('wa');
 		setShowCreateCurriculumModal(false);
-		go_to('/Dashboard');
+		go_to('/');
 	};
 
 	const onModalClose = (e) => {

@@ -16,4 +16,8 @@ export default class Course {
 			grade: this.grade,
 		};
 	}
+
+	static fromFirestore(courseData) {
+		return new Course(courseData.code, courseData.title, courseData.units, courseData.status, courseData.grade);
+	}
 }

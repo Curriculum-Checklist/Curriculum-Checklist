@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Account from './pages/Account';
 import { DeviceProvider } from './contexts/DeviceContext';
+import { DatabaseProvider } from './contexts/DatabaseContext';
 
 function App() {
 	return (
@@ -18,15 +19,17 @@ function App() {
 				<Layout>
 					<AuthProvider>
 						<FirestoreProvider>
-							<Routes>
-								<Route path='/signup' element={<Signup />} />
-								<Route path='/login' element={<Login />} />
-								<Route path='/' element={<PrivateRoute />}>
-									<Route path='/Collection' element={<Collection />} />
-									<Route path='/Account' element={<Account />} />
-									<Route path='/' element={<Dashboard />} />
-								</Route>
-							</Routes>
+							<DatabaseProvider>
+								<Routes>
+									<Route path='/signup' element={<Signup />} />
+									<Route path='/login' element={<Login />} />
+									<Route path='/' element={<PrivateRoute />}>
+										<Route path='/Collection' element={<Collection />} />
+										<Route path='/Account' element={<Account />} />
+										<Route path='/' element={<Dashboard />} />
+									</Route>
+								</Routes>
+							</DatabaseProvider>
 						</FirestoreProvider>
 					</AuthProvider>
 				</Layout>
