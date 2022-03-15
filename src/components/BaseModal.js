@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
 import styles from '../styles/BaseModal.module.css';
+import { BaseButton } from './BaseButton';
 
 const BaseModal = ({
 	show,
@@ -12,7 +13,7 @@ const BaseModal = ({
 	actionIsSubmit = false,
 	onActionButtonClick,
 	actionButtonText = 'Save',
-	actionButtonColor = 'var(--red)',
+	actionButtonColor = 'red',
 }) => {
 	return (
 		<div onClick={onClose} className={clsx(styles.modal, show && styles.show)}>
@@ -24,19 +25,14 @@ const BaseModal = ({
 				<div className={styles.modalBody}>{children}</div>
 
 				<div className={styles.modalFooter}>
-					{hasCancelButton && (
-						<button onClick={onClose} className={styles.cancelButton}>
-							Cancel
-						</button>
-					)}
+					{hasCancelButton && <BaseButton label='Cancel' onClick={onClose} color='transparent' />}
 					{hasActionButton && (
-						<button
-							className={styles.actionButton}
-							type={actionIsSubmit ? 'submit' : 'button'}
+						<BaseButton
+							label={actionButtonText}
 							onClick={onActionButtonClick} //! NOTE: use only if actionIsSubmit is false
-							style={{ backgroundColor: actionButtonColor }}>
-							{actionButtonText}
-						</button>
+							type={actionIsSubmit ? 'submit' : 'button'}
+							color={actionButtonColor}
+						/>
 					)}
 				</div>
 			</div>
