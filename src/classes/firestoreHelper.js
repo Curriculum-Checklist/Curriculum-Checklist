@@ -1,5 +1,4 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import Curriculum from './curriculum';
 
 export class FirestoreHelper {
 	constructor(db, currentUser) {

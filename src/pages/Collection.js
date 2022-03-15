@@ -1,9 +1,7 @@
 import clsx from 'clsx';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import addCircularImg from '../assets/add_circular.svg';
 import CreateCurriculumModal from '../components/CreateCurriculumModal';
-import { useAuth } from '../contexts/AuthContext';
 import styles from '../styles/Collection.module.css';
 
 export default function Collection() {

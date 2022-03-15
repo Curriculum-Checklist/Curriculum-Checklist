@@ -13,17 +13,17 @@ export function useDatabase() {
 export const DatabaseProvider = ({ children }) => {
 	const { currentUser } = useAuth();
 	const { firestoreHelper } = useFirestore();
-	const [curriculum, setCurriculum] = useState();
-
-	async function getCurriculumFromFirestore() {
-		const curriculum = await Curriculum.fromFirestore(firestoreHelper);
-		if (!curriculum) return;
-		setCurriculum(curriculum);
-		LocalStorageHelper.set('curriculum', curriculum);
-	}
+	const [curriculum, setCurriculum] = useState(Curriculum.fromLocalStorage());
 
 	useEffect(() => {
 		const localCurriculum = Curriculum.fromLocalStorage();
+
+		async function getCurriculumFromFirestore() {
+			const curriculum = await Curriculum.fromFirestore(firestoreHelper);
+			if (!curriculum) return;
+			setCurriculum(curriculum);
+			LocalStorageHelper.set('curriculum', curriculum);
+		}
 
 		if (localCurriculum) {
 			setCurriculum(localCurriculum);
@@ -31,7 +31,7 @@ export const DatabaseProvider = ({ children }) => {
 		} else {
 			getCurriculumFromFirestore();
 		}
-	}, [currentUser]);
+	}, [currentUser, firestoreHelper]);
 
 	const value = { curriculum };
 	return <DatabaseContext.Provider value={value}>{children}</DatabaseContext.Provider>;

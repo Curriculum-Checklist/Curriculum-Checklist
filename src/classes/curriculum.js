@@ -2,8 +2,7 @@ import { LocalStorageHelper } from './localStorageHelper';
 import Semester from './semester';
 
 export default class Curriculum {
-	constructor(title, programName, schoolName, semesters) {
-		this.title = title;
+	constructor(programName, schoolName, semesters) {
 		this.programName = programName;
 		this.schoolName = schoolName;
 		this.semesters = semesters;
@@ -11,7 +10,6 @@ export default class Curriculum {
 
 	toFirestore() {
 		return {
-			title: this.title,
 			programName: this.programName,
 			schoolName: this.schoolName,
 			semesters: this.semesters.map((semester) => semester.toFirestore()),
@@ -20,7 +18,6 @@ export default class Curriculum {
 
 	static fromCurriculumData(curriculumData) {
 		return new Curriculum(
-			curriculumData.title,
 			curriculumData.programName,
 			curriculumData.schoolName,
 			curriculumData.semesters.map((semesterData) => Semester.fromFirestore(semesterData))
