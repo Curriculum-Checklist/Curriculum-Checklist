@@ -28,14 +28,14 @@ const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal }) => {
 		LocalStorageHelper.set('curriculum', newCurriculum);
 		console.log('wa');
 		setShowCreateCurriculumModal(false);
-		go_to('/Dashboard')
+		go_to('/Dashboard');
 	};
 
 	const onModalClose = (e) => {
 		e.preventDefault();
-		setCurriculumtitle('');
-		setProgramname('');
-		setSchoolname('');
+		curriculumTitleInputRef.current.value = '';
+		programNameInputRef.current.value = '';
+		schoolNameInputRef.current.value = '';
 		setShowCreateCurriculumModal(false);
 	};
 
