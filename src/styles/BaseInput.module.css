@@ -1,0 +1,28 @@
+.label {
+    color: var(--light-gray);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.input {
+    background-color: transparent;
+    color: var(--white);
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    width: 100%;
+    padding: 6px 12px;
+    border: 2px solid gray;
+}
+
+.input:focus {
+    background-color: transparent;
+    border: 2px solid rgba(71, 157, 255, 0.344);
+    outline: 2px solid rgba(71, 157, 255, 0.344);
+    box-shadow:
+        -1px 0 3px #f0f,
+        1px 0 3px #0ff;
+    color: var(--white);
+}

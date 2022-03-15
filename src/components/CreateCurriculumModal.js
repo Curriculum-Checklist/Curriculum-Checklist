@@ -1,24 +1,32 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import Curriculum from '../classes/curriculum';
 import { LocalStorageHelper } from '../classes/localStorageHelper';
 import { useAuth } from '../contexts/AuthContext';
 import { useFirestore } from '../contexts/FirestoreContext';
+import BaseForm from './BaseForm';
+import BaseInput from './BaseInput';
 import BaseModal from './BaseModal';
 import { useNavigate } from 'react-router-dom';
 
 const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal }) => {
-	const [curriculumtitle, setCurriculumtitle] = useState('');
-	const [programname, setProgramname] = useState('');
-	const [schoolname, setSchoolname] = useState('');
+	const curriculumTitleInputRef = useRef();
+	const programNameInputRef = useRef();
+	const schoolNameInputRef = useRef();
 	const { currentUser } = useAuth();
 	const { firestoreHelper } = useFirestore();
 	const go_to = useNavigate();
 
 	const submitCurriculum = (e) => {
 		e.preventDefault();
-		const newCurriculum = new Curriculum(curriculumtitle, programname, schoolname, []);
+		const newCurriculum = new Curriculum(
+			curriculumTitleInputRef.current.value,
+			programNameInputRef.current.value,
+			schoolNameInputRef.current.value,
+			[]
+		);
 		firestoreHelper.setCurriculum(currentUser.uid, newCurriculum);
 		LocalStorageHelper.set('curriculum', newCurriculum);
+		console.log('wa');
 		setShowCreateCurriculumModal(false);
 		go_to('/Dashboard')
 	};
@@ -32,27 +40,19 @@ const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal }) => {
 	};
 
 	return (
-		<BaseModal
-			show={show}
-			title={'Create Curriculum'}
-			hasCancelButton
-			hasActionButton
-			onActionButtonClick={submitCurriculum}
-			onClose={onModalClose}>
-			<form>
-				<label>Curriculum Title:</label>
-				<input
-					type='text'
-					required
-					value={curriculumtitle}
-					onChange={(e) => setCurriculumtitle(e.target.value)}
-				/>
-				<label>Program Name:</label>
-				<input type='text' required value={programname} onChange={(e) => setProgramname(e.target.value)} />
-				<label>School Name:</label>
-				<input type='text' required value={schoolname} onChange={(e) => setSchoolname(e.target.value)} />
-			</form>
-		</BaseModal>
+		<BaseForm onSubmit={submitCurriculum}>
+			<BaseModal
+				show={show}
+				title={'Create Curriculum'}
+				hasCancelButton
+				hasActionButton
+				actionIsSubmit
+				onClose={onModalClose}>
+				<BaseInput label='Curriculum Title' required ref={curriculumTitleInputRef} />
+				<BaseInput label='Program Name' required ref={programNameInputRef} />
+				<BaseInput label='School Name' required ref={schoolNameInputRef} />
+			</BaseModal>
+		</BaseForm>
 	);
 };
 

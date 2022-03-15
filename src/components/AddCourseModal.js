@@ -33,21 +33,47 @@ const AddCourseModal = ({ show, setShowAddCourseModal }) => {
 			hasActionButton
 			onActionButtonClick={submitCourse}
 			onClose={onModalClose}>
-            // need modify para sa course forms: code, name, units, grade
-			{/* <form>
-				<label>Curriculum Title:</label>
+			<form>
+				<label>Course Title:</label>
 				<input
 					type='text'
 					required
-					value={curriculumtitle}
-					onChange={(e) => setCurriculumtitle(e.target.value)}
+					value={coursetitle}
+					onChange={(e) => setCoursetitle(e.target.value)}
 				/>
-				<label>Program Name:</label>
-				<input type='text' required value={programname} onChange={(e) => setProgramname(e.target.value)} />
-				<label>School Name:</label>
-				<input type='text' required value={schoolname} onChange={(e) => setSchoolname(e.target.value)} />
-			</form> */}
-            //
+				<label>Course Code:</label>
+				<input
+					type='text'
+					required
+					value={coursecode}
+					onChange={(e) => setCoursecode(e.target.value)}
+				/>
+				<label>Course Units:</label>
+				<input
+					type='number'
+					required
+					value={courseunits}
+					onChange={(e) => setCourseunits(e.target.value)}
+				/>
+				<div style={{paddingTop: 8, display: 'flex', justifyContent:'space-between'}}>
+					<label>Course Grade:</label>
+					<select onChange={(e) => setCoursegrade(e.target.value)}>
+						<option value="1.00">1.00</option>
+						<option value="1.25">1.25</option>
+						<option value="1.50">1.50</option>
+						<option value="1.75">1.75</option>
+						<option value="2.00">2.00</option>
+						<option value="2.25">2.25</option>
+						<option value="2.50">2.50</option>
+						<option value="2.75">2.75</option>
+						<option value="3.00">3.00</option>
+						<option value="4.00">4.00</option>
+						<option value="5.00">5.00</option>
+						<option value="INC">INC</option>
+						<option value="DRP">DRP</option>
+					</select>
+				</div>
+			</form>
 		</BaseModal>
 	);
 };

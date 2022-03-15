@@ -36,7 +36,7 @@
     "purpose": "any maskable"
   }],
   "start_url": ".",
-  "display": "fullscreen",
+  "display": "standalone",
   "theme_color": "#2F3136",
   "background_color": "#2F3136"
 }

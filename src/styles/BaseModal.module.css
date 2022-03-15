@@ -20,7 +20,10 @@
 
 .modalContent {
     width: 500px;
-    background-color: #fff;
+    background-color: var(--gray-2);
+    border-radius: 1rem;
+    color: var(--white);
+    padding: 24px;
     transform: translateY(-800px);
     transition: all 0.5s ease-in-out;
 }
@@ -29,25 +32,67 @@
     transform: translateY(0);
 }
 
-.modalTitle {
-    margin: 0;
-}
-
-.modalHeader,
-.modalFooter {
+.modalHeader {
     display: flex;
     justify-content: space-between;
-    padding: 15px;
     text-align: center;
     margin: auto;
 }
 
-.modalBody {
-    padding: 15px;
-    border-top: 1px solid #EEE;
-    border-bottom: 1px solid #EEE;
+.modalTitle {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
 }
 
-.modalBody input {
-    width: 100%;
+.modalBody {
+    margin: 20px 0;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    text-align: center;
+    margin: auto;
+}
+
+.cancelButton {
+    background-color: transparent;
+    border: 1px solid gray;
+    border-radius: 5px;
+    color: var(--white);
+    padding: 5px 25px;
+    font-weight: 600;
+    transition: all 0.1s linear;
+}
+
+.actionButton {
+    background-color: var(--red);
+    border: 1px solid var(--red);
+    border-radius: 5px;
+    color: var(--white);
+    padding: 5px 25px;
+    font-weight: 600;
+    transition: all 0.1s linear;
+}
+
+.cancelButton:active,
+.actionButton:active {
+    transform: scale(0.9);
+}
+
+/*! SMARTPHONE */
+@media only screen and (max-width: 600px) {
+    .modalContent {
+        width: 100%;
+    }
+
+    .cancelButton {
+        padding: 5px 20px;
+    }
+
+    .actionButton {
+        padding: 5px 20px;
+    }
 }
