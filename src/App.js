@@ -4,30 +4,33 @@ import Layout from './components/Layout';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './contexts/AuthContext';
 import { FirestoreProvider } from './contexts/FirestoreContext';
-import Collections from './pages/Collections';
+import Collection from './pages/Collection';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Accounts from './pages/Accounts';
+import Account from './pages/Account';
+import { DeviceProvider } from './contexts/DeviceContext';
 
 function App() {
 	return (
 		<Router>
-			<Layout>
-				<AuthProvider>
-					<FirestoreProvider>
-						<Routes>
-							<Route path='/signup' element={<Signup />} />
-							<Route path='/login' element={<Login />} />
-							<Route path='/' element={<PrivateRoute />}>
-								<Route path='/Collections' element={<Collections />} />
-								<Route path='/Dashboard' element={<Dashboard />} />
-								<Route path='/Accounts' element={<Accounts />} />
-							</Route>
-						</Routes>
-					</FirestoreProvider>
-				</AuthProvider>
-			</Layout>
+			<DeviceProvider>
+				<Layout>
+					<AuthProvider>
+						<FirestoreProvider>
+							<Routes>
+								<Route path='/signup' element={<Signup />} />
+								<Route path='/login' element={<Login />} />
+								<Route path='/' element={<PrivateRoute />}>
+									<Route path='/Collection' element={<Collection />} />
+									<Route path='/Account' element={<Account />} />
+									<Route path='/' element={<Dashboard />} />
+								</Route>
+							</Routes>
+						</FirestoreProvider>
+					</AuthProvider>
+				</Layout>
+			</DeviceProvider>
 		</Router>
 	);
 }

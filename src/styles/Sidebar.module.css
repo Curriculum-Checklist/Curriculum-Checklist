@@ -24,6 +24,8 @@
 }
 
 .tabs {
+    position: relative;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,6 +40,24 @@
 
 .tabLogoWrapper {
     cursor: pointer;
+}
+
+.selectedBarWrapper {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 0;
+    height: 60px;
+    width: 3px;
+}
+
+.selectedBar {
+    height: 80%;
+    width: 100%;
+    background-color: var(--ocean-blue);
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
 }
 
 /*! TABLET */
@@ -60,10 +80,24 @@
 
     .tabs {
         flex-direction: row;
+        height: 100%;
     }
 
     .tab {
+        flex: 1;
+    }
+
+    .selectedBarWrapper {
+        top: 0;
+        width: 33%;
+        height: 4px;
+    }
+
+    .selectedBar {
         height: 100%;
-        width: calc(100vw / 3);
+        width: 60%;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 50px;
+        border-bottom-right-radius: 50px;
     }
 }
