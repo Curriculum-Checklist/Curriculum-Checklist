@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Curriculum from '../classes/curriculum';
 import { LocalStorageHelper } from '../classes/localStorageHelper';
+import { useDatabase } from '../contexts/DatabaseContext';
 import { useFirestore } from '../contexts/FirestoreContext';
 import BaseForm from './BaseForm';
 import BaseInput from './BaseInput';
@@ -12,6 +13,7 @@ const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal }) => {
 	const programNameInputRef = useRef();
 	const schoolNameInputRef = useRef();
 	const { firestoreHelper } = useFirestore();
+	const { setCurriculum } = useDatabase();
 	const go_to = useNavigate();
 
 	const submitCurriculum = (e) => {
@@ -27,7 +29,9 @@ const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal }) => {
 		} catch (e) {
 			console.log('Failed to save curriculum online', e.message);
 		}
+
 		LocalStorageHelper.set('curriculum', newCurriculum);
+		setCurriculum(newCurriculum);
 		setShowCreateCurriculumModal(false);
 		go_to('/');
 	};

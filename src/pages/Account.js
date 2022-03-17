@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { LocalStorageHelper } from '../classes/localStorageHelper';
 import BaseButton from '../components/BaseButton';
 import { useAuth } from '../contexts/AuthContext';
+import { useDatabase } from '../contexts/DatabaseContext';
+import notify from '../function/notify';
 import styles from '../styles/Account.module.css';
 
 export default function Account() {
+	const { setCurriculum } = useDatabase();
 	const [error, setError] = useState('');
 	const { logout } = useAuth();
 	const go_to = useNavigate();
@@ -14,10 +17,13 @@ export default function Account() {
 		setError('');
 
 		try {
+			setCurriculum(undefined);
+			LocalStorageHelper.clear();
 			await logout();
 			go_to('/login');
-			LocalStorageHelper.clear();
-		} catch {
+		} catch (e) {
+			console.log(e.message);
+			notify(error);
 			setError('Failed to log out');
 		}
 	}

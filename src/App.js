@@ -11,6 +11,8 @@ import Signup from './pages/Signup';
 import Account from './pages/Account';
 import { DeviceProvider } from './contexts/DeviceContext';
 import { DatabaseProvider } from './contexts/DatabaseContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 	return (
@@ -34,6 +36,7 @@ function App() {
 					</AuthProvider>
 				</Layout>
 			</DeviceProvider>
+			<ToastContainer />
 		</Router>
 	);
 }

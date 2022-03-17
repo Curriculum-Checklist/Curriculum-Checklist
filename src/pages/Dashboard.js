@@ -18,7 +18,7 @@ const editingCurriculum = new Curriculum();
 export default function Dashboard() {
 	const { curriculum } = useDatabase();
 	const [editMode, setEditMode] = useState(false);
-	const [sems, setSems] = useState([...curriculum?.semesters]); //List of sems for teting only
+	const [sems, setSems] = useState(curriculum ? [...curriculum.semesters] : []); //List of sems for teting only
 	const { firestoreHelper } = useFirestore();
 
 	//Need to actually add sem in database
