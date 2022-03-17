@@ -1,46 +1,49 @@
 import React, { useState } from 'react';
-import AddCourseModal from '../components/AddCourseModal'
-import styles from '../styles/Dashboard.module.css';
+import AddCourseModal from '../components/AddCourseModal';
+import styles from '../styles/SemCard.module.css';
 import addCircularImg from '../assets/add_circular.svg';
 import clsx from 'clsx';
+import Divider from './Divider';
+import CourseRow from './CourseRow';
 
-const SemCard = () => {
-    const AddCourseButton = () => {
-        const [showAddCourseModal, setShowAddCourseModal] = useState(false);
-    
-        return (
-            <div>
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                        <div
-                            className={clsx(styles.addCourseButton, 'mt-2 unselectable')}
-                            alt='Add Course'
-                            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}
-                            onClick={() => setShowAddCourseModal(true)}>
-                                
-                            <div className={(styles.addCourseIcon)}>
-                                <img src={addCircularImg} alt='Add icon' width='24' height ='24' />
-                            </div>
-                            <div className={(styles.addCourseText)}>
-                                <h6>Add Course</h6>
-                            </div>
-    
-                        </div>
-    
-                        <AddCourseModal
-                            setShowAddCourseModal={setShowAddCourseModal}
-                            show={showAddCourseModal}
-                        />
-                    </div>
-                    
-            </div>
-        );
-    }
-    
-    return (
-        <div className={clsx(styles.semCard)}>
-            <AddCourseButton/>
-        </div>
-    );
-}
+// import 'react-perfect-scrollbar/dist/css/styles.css';
+// import PerfectScrollbar from 'react-perfect-scrollbar';
 
-export default SemCard
+const SemCard = ({ sem }) => {
+	const [showAddCourseModal, setShowAddCourseModal] = useState(false);
+	const [courses, setCourses] = useState([...sem.courses]);
+
+	const addCourse = (course) => {
+		sem.courses.push(course);
+		setCourses([...courses, course]);
+		setShowAddCourseModal(false);
+	};
+
+	return (
+		<div className={styles.semCard}>
+			<h2 className={styles.title}>{sem.title}</h2>
+			<Divider margin={0} />
+			{courses.map((course, index) => (
+				<CourseRow key={course.title} course={course} index={index} />
+			))}
+
+			<div
+				className={clsx(styles.addCourseButton, 'unselectable')}
+				// style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
+				onClick={() => setShowAddCourseModal(true)}>
+				<img src={addCircularImg} alt='Add icon' width='24' height='24' />
+				<div className={styles.addCourseText}>
+					<h6>Add Course</h6>
+				</div>
+			</div>
+
+			<AddCourseModal
+				addCourse={addCourse}
+				setShowAddCourseModal={setShowAddCourseModal}
+				show={showAddCourseModal}
+			/>
+		</div>
+	);
+};
+
+export default SemCard;

@@ -1,0 +1,38 @@
+.semCard {
+    min-height: 330px;
+    width: 200px;
+    background-color: #292B2F;
+    border-radius: 15px;
+    padding: 12px 0;
+}
+
+.title {
+    font-size: 1.5rem;
+    padding-left: 12px;
+    margin: 0 0 4px 0;
+}
+
+.addCourseButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.1s linear;
+}
+
+.addCourseButton:hover {
+    background-color: var(--gray-3);
+}
+
+.addCourseButton:active {
+    background-color: transparent;
+    transform: scale(0.9);
+}
+
+
+
+.addCourseText {
+    padding-top: 12px;
+    padding-left: 0px;
+}
