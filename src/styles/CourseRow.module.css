@@ -1,0 +1,45 @@
+.container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    --color-width: 2px;
+}
+
+.leftOuter {
+    display: flex;
+    align-items: stretch;
+}
+
+.leftInner {
+    display: flex;
+    flex-direction: column;
+    padding: 6px 0;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    padding-right: 12px;
+}
+
+.color {
+    width: var(--color-width);
+}
+
+.code {
+    font-size: 1rem;
+    padding-left: calc(12px - var(--color-width));
+    margin: 0;
+}
+
+.title {
+    font-size: 0.7rem;
+    font-weight: 200;
+    padding-left: 12px;
+    margin: 0;
+}
+
+.units {
+    margin: 0;
+}

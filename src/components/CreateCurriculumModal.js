@@ -22,7 +22,11 @@ const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal }) => {
 			schoolNameInputRef.current.value,
 			[]
 		);
-		firestoreHelper.setCurriculum(newCurriculum);
+		try {
+			firestoreHelper.setCurriculum(newCurriculum);
+		} catch (e) {
+			console.log('Failed to save curriculum online', e.message);
+		}
 		LocalStorageHelper.set('curriculum', newCurriculum);
 		setShowCreateCurriculumModal(false);
 		go_to('/');

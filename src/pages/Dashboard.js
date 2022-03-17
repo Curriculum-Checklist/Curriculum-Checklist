@@ -7,23 +7,50 @@ import { useDatabase } from '../contexts/DatabaseContext';
 import styles from '../styles/Dashboard.module.css';
 import BaseButton from '../components/BaseButton';
 import pencilImg from '../assets/pencil.svg';
+import Curriculum from '../classes/curriculum';
+import Semester from '../classes/semester';
+import { getNextSem } from '../function/utils';
+import { LocalStorageHelper } from '../classes/localStorageHelper';
+import { useFirestore } from '../contexts/FirestoreContext';
+
+const editingCurriculum = new Curriculum();
 
 export default function Dashboard() {
 	const { curriculum } = useDatabase();
 	const [editMode, setEditMode] = useState(false);
-	const [sems, setSems] = useState(curriculum?.semesters ?? []); //List of sems for teting only
+	const [sems, setSems] = useState([...curriculum?.semesters]); //List of sems for teting only
+	const { firestoreHelper } = useFirestore();
 
 	//Need to actually add sem in database
 	const addSem = () => {
-		const newList = sems.concat({});
-		setSems(newList);
+		const title = sems.length === 0 ? '1Y-1S' : getNextSem(sems[sems.length - 1].title);
+		const newSem = new Semester(title, []);
+		editingCurriculum.semesters.push(newSem);
+		setSems([...sems, newSem]);
 	};
 
+	function startEditing() {
+		if (!curriculum) return;
+		editingCurriculum.copyFrom(curriculum);
+		setSems([...editingCurriculum.semesters]);
+		setEditMode(true);
+	}
+
 	function discardChanges() {
-		setSems(curriculum?.semesters ?? []);
+		setSems([...curriculum.semesters]);
 		setEditMode(false);
 	}
-	function saveChanges() {}
+	function saveChanges() {
+		curriculum.copyFrom(editingCurriculum);
+		try {
+			firestoreHelper.setCurriculum(curriculum);
+		} catch (e) {
+			console.log('Failed to save curriculum online', e.message);
+		}
+		LocalStorageHelper.set('curriculum', curriculum);
+		setEditMode(false);
+		setSems([...curriculum.semesters]);
+	}
 
 	//TODO - use dropdown to notify user on failed logout
 	if (!curriculum) {
@@ -40,19 +67,20 @@ export default function Dashboard() {
 					<BaseButton label='Save' color='red' onClick={saveChanges} />
 				</div>
 			) : (
-				<BaseButton label='Edit' color='green' icon={pencilImg} tight onClick={() => setEditMode(true)} />
+				<BaseButton label='Edit' color='green' icon={pencilImg} tight onClick={startEditing} />
 			)}
-			{editMode && (
-				<div className={styles.grid}>
-					{sems.map((sem, i) => (
-						<SemCard key={i} />
-					))}
+
+			<div className={styles.grid}>
+				{sems.map((sem, i) => (
+					<SemCard sem={sem} key={i} />
+				))}
+				{editMode && (
 					<div className={clsx(styles.addSemCard, 'unselectable')} onClick={addSem}>
 						<img src={addCircularImg} alt='Add icon' />
 						<h3>Add Sem</h3>
 					</div>
-				</div>
-			)}
+				)}
+			</div>
 		</div>
 	);
 }

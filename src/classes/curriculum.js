@@ -1,3 +1,4 @@
+import Course from './course';
 import { LocalStorageHelper } from './localStorageHelper';
 import Semester from './semester';
 
@@ -5,7 +6,21 @@ export default class Curriculum {
 	constructor(programName, schoolName, semesters) {
 		this.programName = programName;
 		this.schoolName = schoolName;
-		this.semesters = semesters;
+		this.semesters = semesters ?? [];
+	}
+
+	copyFrom(curriculum) {
+		this.programName = curriculum.programName;
+		this.schoolName = curriculum.schoolName;
+		this.semesters = [];
+		for (const semester of curriculum.semesters) {
+			const newSemester = new Semester(semester.title, []);
+			for (const course of semester.courses) {
+				const newCourse = new Course(course.code, course.title, course.units, course.status, course.grade);
+				newSemester.courses.push(newCourse);
+			}
+			this.semesters.push(newSemester);
+		}
 	}
 
 	toFirestore() {
