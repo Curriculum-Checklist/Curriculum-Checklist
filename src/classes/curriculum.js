@@ -23,6 +23,12 @@ export default class Curriculum {
 		}
 	}
 
+	clear() {
+		this.programName = '';
+		this.schoolName = '';
+		this.semesters = [];
+	}
+
 	toFirestore() {
 		return {
 			programName: this.programName,

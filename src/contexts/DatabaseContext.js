@@ -33,6 +33,6 @@ export const DatabaseProvider = ({ children }) => {
 		}
 	}, [currentUser, firestoreHelper]);
 
-	const value = { curriculum };
+	const value = { curriculum, setCurriculum };
 	return <DatabaseContext.Provider value={value}>{children}</DatabaseContext.Provider>;
 };

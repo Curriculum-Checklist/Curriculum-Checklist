@@ -1,20 +1,15 @@
-import React, { useRef, useState } from 'react';
-import { LocalStorageHelper } from '../classes/localStorageHelper';
-import { useAuth } from '../contexts/AuthContext';
-import { useFirestore } from '../contexts/FirestoreContext';
-import BaseModal from './BaseModal';
-import BaseForm from './BaseForm';
-import BaseInput from './BaseInput';
+import React, { useRef } from 'react';
 import Course from '../classes/course';
 import BaseDropdown from './BaseDropdown';
+import BaseForm from './BaseForm';
+import BaseInput from './BaseInput';
+import BaseModal from './BaseModal';
 
 const AddCourseModal = ({ show, setShowAddCourseModal, addCourse }) => {
 	const codeInputRef = useRef();
 	const titleInputRef = useRef();
 	const unitsInputRef = useRef();
 	const gradeInputRef = useRef();
-	const { currentUser } = useAuth();
-	const { firestoreHelper } = useFirestore();
 
 	const clearInputs = () => {
 		codeInputRef.current.value = '';
