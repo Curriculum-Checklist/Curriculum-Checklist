@@ -17,6 +17,22 @@
     padding: 6px 0;
 }
 
+.middle {
+    display: flex;
+    align-items: center;
+    border: solid;
+    border-color: red;
+    border-radius: 10px;
+    height: 35px;
+    width: 50px;
+}
+.status {
+    font-size: 0.7rem;
+    font-weight: 200;
+    padding-left: 12px;
+    margin: 0;
+}
+
 .right {
     display: flex;
     align-items: center;
@@ -43,3 +59,4 @@
 .units {
     margin: 0;
 }
+

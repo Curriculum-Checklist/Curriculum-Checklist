@@ -15,6 +15,9 @@ const CourseRow = ({ course, index }) => {
 					<p className={styles.title}>{course.title}</p>
 				</div>
 			</div>
+			<div className={styles.middle}>
+				<p className={styles.status}>{course.status}</p>
+			</div>
 			<div className={styles.right}>
 				<p className={styles.units}>{course.units}</p>
 			</div>
