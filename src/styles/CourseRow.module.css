@@ -18,19 +18,22 @@
 }
 
 .middle {
-    display: flex;
+    text-align: center;
     align-items: center;
+    vertical-align: middle;
+
     border: solid;
     border-color: red;
     border-radius: 10px;
-    height: 35px;
-    width: 50px;
+    height: 30px;
+    width: 70px;
 }
+
 .status {
-    font-size: 0.7rem;
-    font-weight: 200;
-    padding-left: 12px;
-    margin: 0;
+    font-size: 0.68rem;
+    font-weight: 500;
+    margin: auto;
+    padding-top: 5px;
 }
 
 .right {
