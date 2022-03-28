@@ -100,7 +100,7 @@ export default function Dashboard() {
 
 			<div className={styles.grid}>
 				{sems.map((sem, i) => (
-					<SemCard sem={sem} key={i} />
+					<SemCard sem={sem} key={i} editMode = {editMode}/>
 				))}
 				{editMode && (
 					<div className={clsx(styles.addSemCard, 'unselectable')} onClick={addSem}>
