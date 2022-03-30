@@ -25,7 +25,7 @@ function changeStatus() {
 					<p className={styles.title}>{course.title}</p>
 				</div>
 			</div>
-			<button type="button" onClick={changeStatus} className={styles.middle}>
+			<button type="button" className={styles.middle}>
 				<p className={styles.status}>{course.status}</p>
 			</button>
 			<div className={styles.right}>
