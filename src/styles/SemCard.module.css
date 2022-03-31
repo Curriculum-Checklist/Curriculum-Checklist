@@ -7,8 +7,12 @@
 }
 
 .title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-size: 1.5rem;
     padding-left: 12px;
+    padding-right: 12px;
     margin: 0 0 4px 0;
 }
 
@@ -35,4 +39,13 @@
 .addCourseText {
     padding-top: 12px;
     padding-left: 0px;
+}
+
+.pencilWhiteImg {
+    cursor: pointer;
+    transition: all 0.1s linear;
+}
+
+.pencilWhiteImg:active {
+    transform: scale(0.8);
 }

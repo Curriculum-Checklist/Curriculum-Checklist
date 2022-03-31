@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Curriculum from '../classes/curriculum';
 import { LocalStorageHelper } from '../classes/localStorageHelper';
@@ -8,8 +8,7 @@ import BaseForm from './BaseForm';
 import BaseInput from './BaseInput';
 import BaseModal from './BaseModal';
 
-const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal }) => {
-	// const curriculumTitleInputRef = useRef();
+const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal, initialProgramName, initialSchoolName }) => {
 	const programNameInputRef = useRef();
 	const schoolNameInputRef = useRef();
 	const { firestoreHelper } = useFirestore();
@@ -18,12 +17,7 @@ const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal }) => {
 
 	const submitCurriculum = (e) => {
 		e.preventDefault();
-		const newCurriculum = new Curriculum(
-			// curriculumTitleInputRef.current.value,
-			programNameInputRef.current.value,
-			schoolNameInputRef.current.value,
-			[]
-		);
+		const newCurriculum = new Curriculum(programNameInputRef.current.value, schoolNameInputRef.current.value, []);
 		try {
 			firestoreHelper.setCurriculum(newCurriculum);
 		} catch (e) {
@@ -44,6 +38,10 @@ const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal }) => {
 		setShowCreateCurriculumModal(false);
 	};
 
+	useEffect(() => {
+		if (initialProgramName) programNameInputRef.current.value = initialProgramName;
+		if (initialSchoolName) schoolNameInputRef.current.value = initialSchoolName;
+	}, [initialProgramName, initialSchoolName, show]);
 	return (
 		<BaseForm onSubmit={submitCurriculum}>
 			<BaseModal

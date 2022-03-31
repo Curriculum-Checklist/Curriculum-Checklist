@@ -4,7 +4,18 @@
     align-items: center;
     justify-content: space-between;
     --color-width: 2px;
+    transition: all 0.1s linear;
 }
+
+
+.clickable {
+    cursor: pointer;
+}
+
+.clickable:hover {
+    background-color: var(--gray-3);
+}
+
 
 .leftOuter {
     display: flex;
