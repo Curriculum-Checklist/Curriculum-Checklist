@@ -16,8 +16,9 @@ const BaseModal = ({
 	actionButtonColor = 'red',
 }) => {
 	return (
-		<div onClick={onClose} className={clsx(styles.modal, show && styles.show)}>
-			<div onClick={(e) => e.stopPropagation()} className={styles.modalContent}>
+		<div className={clsx(styles.modal, show && styles.show)}>
+			<div onClick={onClose} className={styles.overlay} />
+			<div className={styles.modalContent}>
 				<div className={styles.modalHeader}>
 					<h4 className={styles.modalTitle}> {title} </h4>
 				</div>

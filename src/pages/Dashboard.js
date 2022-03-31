@@ -14,15 +14,30 @@ import { getNextSem } from '../function/utils';
 import { LocalStorageHelper } from '../classes/localStorageHelper';
 import { useFirestore } from '../contexts/FirestoreContext';
 import EditCurriculumInfoModal from '../components/EditCurriculumInfoModal';
+import EditCourseModal from '../components/EditCourseModal';
+import EditSemInfoModal from '../components/EditSemInfoModal';
 
 const editingCurriculum = new Curriculum();
+
+export const DashboardContext = React.createContext();
 
 export default function Dashboard() {
 	const { curriculum } = useDatabase();
 	const [editMode, setEditMode] = useState(false);
+
+	//! Curriculum Editing
 	const [showEditCurriculumInfoModal, setShowEditCurriculumInfoModal] = useState(false);
 	const [programName, setProgramName] = useState(curriculum ? curriculum.programName : '');
 	const [schoolName, setSchoolName] = useState(curriculum ? curriculum.schoolName : '');
+
+	//! Semester Editing
+	const [showEditSemInfoModal, setShowEditSemInfoModal] = useState(false);
+	const [selectedSem, setSelectedSem] = useState();
+
+	//! Course Editing
+	const [showEditCourseModal, setShowEditCourseModal] = useState(false);
+	const [selectedCourse, setSelectedCourse] = useState();
+
 	const [sems, setSems] = useState(curriculum ? [...curriculum.semesters] : []); //List of sems for teting only
 	const { firestoreHelper } = useFirestore();
 
@@ -70,53 +85,84 @@ export default function Dashboard() {
 		setSchoolName(newSchoolName);
 	}
 
+	function updateSemInfo(newSemTitle) {
+		selectedSem.title = newSemTitle;
+	}
+
+	const updateCourse = (courseTitle, courseCode, courseUnits, courseGrade, courseStatus) => {
+		selectedCourse.title = courseTitle;
+		selectedCourse.code = courseCode;
+		selectedCourse.units = courseUnits;
+		selectedCourse.grade = courseGrade;
+		selectedCourse.status = courseStatus;
+	};
+
 	//TODO - use dropdown to notify user on failed logout
 	if (!curriculum) {
 		return <div className={styles.container}>{!curriculum && <GetCurriculumBanner />}</div>;
 	}
 
 	return (
-		<div className={styles.container}>
-			<div className={styles.programNameWrapper}>
-				<h1>{programName}</h1>
-				{editMode && (
-					<img
-						className='pencilGreenImg'
-						src={pencilGreenImg}
-						alt='Edit Program Name'
-						onClick={() => setShowEditCurriculumInfoModal(true)}
-					/>
-				)}
-			</div>
-			<h5>{schoolName}</h5>
-			{editMode ? (
-				<div className={styles.saveDiscardButtonsWrapper}>
-					<BaseButton label='Discard' color='transparent-ocean-blue' onClick={discardChanges} />
-					<BaseButton label='Save' color='red' onClick={saveChanges} />
+		<DashboardContext.Provider
+			value={{
+				editMode,
+
+				//! Curriculum editing
+				showEditCurriculumInfoModal,
+				setShowEditCurriculumInfoModal,
+				programName,
+				schoolName,
+
+				//! Semester editing
+				showEditSemInfoModal,
+				setShowEditSemInfoModal,
+				selectedSem,
+				setSelectedSem,
+
+				//! Course editing
+				showEditCourseModal,
+				setShowEditCourseModal,
+				selectedCourse,
+				setSelectedCourse,
+			}}>
+			<div className={styles.container}>
+				<div className={styles.programNameWrapper}>
+					<h1>{programName}</h1>
+					{editMode && (
+						<img
+							className='pencilGreenImg'
+							src={pencilGreenImg}
+							alt='Edit Program Name'
+							onClick={() => setShowEditCurriculumInfoModal(true)}
+						/>
+					)}
 				</div>
-			) : (
-				<BaseButton label='Edit' color='green' icon={pencilWhiteImg} tight onClick={startEditing} />
-			)}
-
-			<div className={styles.grid}>
-				{sems.map((sem, i) => (
-					<SemCard sem={sem} key={i} editMode={editMode} />
-				))}
-				{editMode && (
-					<div className={clsx(styles.addSemCard, 'unselectable')} onClick={addSem}>
-						<img src={addCircularImg} alt='Add icon' />
-						<h3>Add Sem</h3>
+				<h5>{schoolName}</h5>
+				{editMode ? (
+					<div className={styles.saveDiscardButtonsWrapper}>
+						<BaseButton label='Discard' color='transparent-ocean-blue' onClick={discardChanges} />
+						<BaseButton label='Save' color='red' onClick={saveChanges} />
 					</div>
+				) : (
+					<BaseButton label='Edit' color='green' icon={pencilWhiteImg} tight onClick={startEditing} />
 				)}
-			</div>
 
-			<EditCurriculumInfoModal
-				show={showEditCurriculumInfoModal}
-				setShow={setShowEditCurriculumInfoModal}
-				onSave={updateCurriculumInfo}
-				initialProgramName={programName}
-				initialSchoolName={schoolName}
-			/>
-		</div>
+				<div className={styles.grid}>
+					{sems.map((sem, i) => (
+						<SemCard sem={sem} key={i} />
+					))}
+					{editMode && (
+						<div className={clsx(styles.addSemCard, 'unselectable')} onClick={addSem}>
+							<img src={addCircularImg} alt='Add icon' />
+							<h3>Add Sem</h3>
+						</div>
+					)}
+				</div>
+
+				<EditCurriculumInfoModal onSave={updateCurriculumInfo} />
+				<EditSemInfoModal onSave={updateSemInfo} />
+				<EditCourseModal onSave={updateCourse} />
+			</div>
+		</DashboardContext.Provider>
 	);
 }
