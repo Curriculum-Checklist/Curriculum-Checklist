@@ -2,14 +2,6 @@
     width: 100%;
 }
 
-.pencilGreenImg {
-    cursor: pointer;
-    transition: all 0.1s linear;
-}
-
-.pencilGreenImg:active {
-    transform: scale(0.8);
-}
 
 .programNameWrapper {
     width: 100%;
