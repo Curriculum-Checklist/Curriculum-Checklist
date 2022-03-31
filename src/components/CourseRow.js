@@ -22,6 +22,16 @@ const CourseRow = ({ course, index, editMode }) => {
 		}
 	};
 
+function changeStatus() {
+	if (course.status === "Not Taken") {
+		course.status = "Taking";
+	} else if (course.status === "Taking"){
+		course.status = "Taken";
+	} else if (course.status === "Taken"){
+		course.status = "Not Taken";
+	}
+}
+
 	return (
 		<div
 			className={clsx(styles.container, editMode && !showEditCourseModal && [styles.clickable, 'unselectable'])}
@@ -33,6 +43,11 @@ const CourseRow = ({ course, index, editMode }) => {
 					<p className={styles.title}>{course.title}</p>
 				</div>
 			</div>
+
+			<button type="button" className={styles.middle}>
+				<p className={styles.status}>{course.status}</p>
+			</button>
+
 			<EditCourseModal
 				setShowEditCourseModal={setShowEditCourseModal}
 				show={showEditCourseModal}
@@ -42,6 +57,7 @@ const CourseRow = ({ course, index, editMode }) => {
 				courseUnits={course.units}
 				courseGrade={course.grade}
 			/>
+
 			<div className={styles.right}>
 				<p className={styles.units}>{course.units}</p>
 			</div>
