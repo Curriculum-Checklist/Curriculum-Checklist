@@ -1,27 +1,28 @@
 import React, { useEffect, useRef } from 'react';
 import BaseDropdown from './BaseDropdown';
 import BaseForm from './BaseForm';
-import BaseInput from './BaseInput';
 import BaseModal from './BaseModal';
 
 const EditSemInfoModal = ({ show, setShow, onSave, semInfo }) => {
-    const semInputRef = useRef();
-    const yearInputRef = useRef();
+	const semInputRef = useRef();
+	const yearInputRef = useRef();
 
-    const submitSemTitle = (e) => {
-        e.preventDefault();
+	const submitSemTitle = (e) => {
+		e.preventDefault();
 		onSave(yearInputRef.current.value + 'Y-' + semInputRef.current.value + 'S');
 		setShow(false);
-    };
+	};
 
 	const onModalClose = (e) => {
 		e.preventDefault();
 		setShow(false);
 	};
 
-    useEffect(() => {
-		if (semInputRef) semInputRef.current.value = semInfo.slice(3,4);
-		if (yearInputRef) yearInputRef.current.value = semInfo.slice(0,1);
+	useEffect(() => {
+		if (semInfo) {
+			semInputRef.current.value = semInfo.slice(3, 4);
+			yearInputRef.current.value = semInfo.slice(0, 1);
+		}
 	}, [semInfo, show]);
 
 	return (
@@ -34,18 +35,13 @@ const EditSemInfoModal = ({ show, setShow, onSave, semInfo }) => {
 				actionIsSubmit
 				onClose={onModalClose}>
 				{/* <BaseInput label='Curriculum Title' required ref={curriculumTitleInputRef} /> */}
-				<BaseDropdown label='Year' 
-                    options={[
-                        '1','2','3','4','5','6','7','8','9',
-                    ]}
-                required ref={yearInputRef}/>
-				<BaseDropdown label='Semester' 
-                    options={[
-                        '1',
-                        '2',
-                        'M'
-                    ]}
-                required ref={semInputRef}/>
+				<BaseDropdown
+					label='Year'
+					options={['1', '2', '3', '4', '5', '6', '7', '8', '9']}
+					required
+					ref={yearInputRef}
+				/>
+				<BaseDropdown label='Semester' options={['1', '2', 'M']} required ref={semInputRef} />
 			</BaseModal>
 		</BaseForm>
 	);

@@ -39,8 +39,8 @@ const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal, initialProg
 	};
 
 	useEffect(() => {
-		if (programNameInputRef) programNameInputRef.current.value = initialProgramName;
-		if (schoolNameInputRef) schoolNameInputRef.current.value = initialSchoolName;
+		if (initialProgramName) programNameInputRef.current.value = initialProgramName;
+		if (initialSchoolName) schoolNameInputRef.current.value = initialSchoolName;
 	}, [initialProgramName, initialSchoolName, show]);
 	return (
 		<BaseForm onSubmit={submitCurriculum}>

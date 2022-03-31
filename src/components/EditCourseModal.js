@@ -4,7 +4,15 @@ import BaseForm from './BaseForm';
 import BaseInput from './BaseInput';
 import BaseModal from './BaseModal';
 
-const EditCourseModal = ({ show, setShowEditCourseModal, editCourse, courseTitle, courseCode, courseUnits, courseGrade }) => {
+const EditCourseModal = ({
+	show,
+	setShowEditCourseModal,
+	editCourse,
+	courseTitle,
+	courseCode,
+	courseUnits,
+	courseGrade,
+}) => {
 	const codeInputRef = useRef();
 	const titleInputRef = useRef();
 	const unitsInputRef = useRef();
@@ -19,12 +27,12 @@ const EditCourseModal = ({ show, setShowEditCourseModal, editCourse, courseTitle
 
 	const submitCourse = (e) => {
 		e.preventDefault();
-        editCourse(
-            titleInputRef.current.value, 
-            codeInputRef.current.value, 
-            unitsInputRef.current.value, 
-            gradeInputRef.current.value
-        );
+		editCourse(
+			titleInputRef.current.value,
+			codeInputRef.current.value,
+			unitsInputRef.current.value,
+			gradeInputRef.current.value
+		);
 		closeModal();
 	};
 
@@ -33,18 +41,18 @@ const EditCourseModal = ({ show, setShowEditCourseModal, editCourse, courseTitle
 		setShowEditCourseModal(false);
 	};
 
-    useEffect(() => {
-		if (codeInputRef) codeInputRef.current.value = courseCode;
-		if (titleInputRef) titleInputRef.current.value = courseTitle;
-		if (unitsInputRef) unitsInputRef.current.value = courseUnits;
-		if (gradeInputRef) gradeInputRef.current.value = courseGrade;
+	useEffect(() => {
+		if (courseCode) codeInputRef.current.value = courseCode;
+		if (courseTitle) titleInputRef.current.value = courseTitle;
+		if (courseUnits) unitsInputRef.current.value = courseUnits;
+		if (courseGrade) gradeInputRef.current.value = courseGrade;
 	}, [courseCode, courseTitle, courseUnits, courseGrade, show]);
 
 	return (
 		<BaseForm onSubmit={submitCourse}>
 			<BaseModal
 				show={show}
-				title={'Course Creator'}
+				title={'Edit Course'}
 				hasCancelButton
 				hasActionButton
 				actionIsSubmit

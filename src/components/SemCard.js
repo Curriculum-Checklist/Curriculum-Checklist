@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddCourseModal from '../components/AddCourseModal';
 import styles from '../styles/SemCard.module.css';
 import addCircularImg from '../assets/add_circular.svg';
@@ -21,9 +21,14 @@ const SemCard = ({ sem, editMode }) => {
 		setCourses([...courses, course]);
 		setShowAddCourseModal(false);
 	};
+
 	function updateSemInfo(newSemTitle) {
 		sem.title = newSemTitle;
 	}
+
+	useEffect(() => {
+		setCourses([...sem.courses]);
+	}, [sem]);
 
 	return (
 		<div className={styles.semCard}>
@@ -40,18 +45,19 @@ const SemCard = ({ sem, editMode }) => {
 			</h2>
 			<Divider margin={0} />
 			{courses.map((course, index) => (
-				<CourseRow key={course.title} course={course} index={index} />
+				<CourseRow key={course.title} course={course} index={index} editMode={editMode} />
 			))}
 
-			<div
-				className={clsx(styles.addCourseButton, 'unselectable')}
-				// style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}
-				onClick={() => setShowAddCourseModal(true)}>
-				<img src={addCircularImg} alt='Add icon' width='24' height='24' />
-				<div className={styles.addCourseText}>
-					<h6>Add Course</h6>
+			{editMode && (
+				<div
+					className={clsx(styles.addCourseButton, 'unselectable')}
+					onClick={() => setShowAddCourseModal(true)}>
+					<img src={addCircularImg} alt='Add icon' width='24' height='24' />
+					<div className={styles.addCourseText}>
+						<h6>Add Course</h6>
+					</div>
 				</div>
-			</div>
+			)}
 
 			<AddCourseModal
 				addCourse={addCourse}
