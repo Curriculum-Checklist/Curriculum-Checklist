@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import EditCourseModal from './EditCourseModal';
 import styles from '../styles/CourseRow.module.css';
 
 const themeColors = ['red', 'yellow', 'green', 'blue', 'orange'];
 
 const CourseRow = ({ course, index }) => {
 	const color = themeColors[index % themeColors.length];
+	const [showEditCourseModal, setShowEditCourseModal] = useState(false);
+
+	const editCourse = (courseTitle, courseCode, courseUnits, courseGrade) => {
+		course.title = courseTitle;
+		course.code = courseCode;
+		course.units = courseUnits;
+		course.grade = courseGrade;
+	}
 
 	return (
-		<div className={styles.container}>
+		<div className={styles.container} onClick={() => setShowEditCourseModal(true)}>
 			<div className={styles.leftOuter}>
 				<div className={styles.color} style={{ backgroundColor: `var(--${color}-theme)` }} />
 				<div className={styles.leftInner}>
@@ -15,6 +24,15 @@ const CourseRow = ({ course, index }) => {
 					<p className={styles.title}>{course.title}</p>
 				</div>
 			</div>
+			<EditCourseModal
+				setShowEditCourseModal={setShowEditCourseModal}
+				show={showEditCourseModal}
+				editCourse={editCourse}
+				courseTitle={course.title}
+				courseCode={course.code}
+				courseUnits={course.units}
+				courseGrade={course.grade}
+			/>
 			<div className={styles.right}>
 				<p className={styles.units}>{course.units}</p>
 			</div>
