@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AddCourseModal from '../components/AddCourseModal';
 import styles from '../styles/SemCard.module.css';
 import addCircularImg from '../assets/add_circular.svg';
-import pencilWhiteImg from '../assets/pencil_white.svg';
+import pencilGreenImg from '../assets/pencil_green.svg';
 import clsx from 'clsx';
 import Divider from './Divider';
 import CourseRow from './CourseRow';
@@ -29,12 +29,14 @@ const SemCard = ({ sem, editMode }) => {
 		<div className={styles.semCard}>
 			<h2 className={styles.title}>
 				{sem.title}
-				{editMode && <img
-					className={styles.pencilWhiteImg}
-					src={pencilWhiteImg}
-					alt='Edit Semester'
-					onClick={() => setShowEditSemInfoModal(true)}
-				/>}
+				{editMode && (
+					<img
+						className='pencilGreenImg'
+						src={pencilGreenImg}
+						alt='Edit Semester'
+						onClick={() => setShowEditSemInfoModal(true)}
+					/>
+				)}
 			</h2>
 			<Divider margin={0} />
 			{courses.map((course, index) => (

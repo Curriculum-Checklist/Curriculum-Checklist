@@ -81,7 +81,7 @@ export default function Dashboard() {
 				<h1>{programName}</h1>
 				{editMode && (
 					<img
-						className={styles.pencilGreenImg}
+						className='pencilGreenImg'
 						src={pencilGreenImg}
 						alt='Edit Program Name'
 						onClick={() => setShowEditCurriculumInfoModal(true)}
@@ -100,7 +100,7 @@ export default function Dashboard() {
 
 			<div className={styles.grid}>
 				{sems.map((sem, i) => (
-					<SemCard sem={sem} key={i} editMode = {editMode}/>
+					<SemCard sem={sem} key={i} editMode={editMode} />
 				))}
 				{editMode && (
 					<div className={clsx(styles.addSemCard, 'unselectable')} onClick={addSem}>
