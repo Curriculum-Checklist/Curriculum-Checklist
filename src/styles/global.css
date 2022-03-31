@@ -37,6 +37,12 @@
   --blue-theme: #3399FF;
   --orange-theme: #FF9933;
 
+  --red-alpha-theme: #FF33663F;
+  --yellow-alpha-theme: #F3CA3E3F;
+  --green-alpha-theme: #2AC9403F;
+  --blue-alpha-theme: #3399FF3F;
+  --orange-alpha-theme: #FF99333F;
+
   /** other color vars*/
   --sidebar-icon-color: var(--white);
   --sidebar-selected-icon-color: var(--ocean-blue);

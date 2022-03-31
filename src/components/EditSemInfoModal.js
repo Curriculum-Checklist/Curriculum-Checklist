@@ -1,11 +1,18 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
+import { DashboardContext } from '../pages/Dashboard';
 import BaseDropdown from './BaseDropdown';
 import BaseForm from './BaseForm';
 import BaseModal from './BaseModal';
 
-const EditSemInfoModal = ({ show, setShow, onSave, semInfo }) => {
+const EditSemInfoModal = ({ onSave }) => {
 	const semInputRef = useRef();
 	const yearInputRef = useRef();
+
+	const {
+		showEditSemInfoModal: show,
+		setShowEditSemInfoModal: setShow,
+		selectedSem: sem,
+	} = useContext(DashboardContext);
 
 	const submitSemTitle = (e) => {
 		e.preventDefault();
@@ -19,11 +26,11 @@ const EditSemInfoModal = ({ show, setShow, onSave, semInfo }) => {
 	};
 
 	useEffect(() => {
-		if (semInfo) {
-			semInputRef.current.value = semInfo.slice(3, 4);
-			yearInputRef.current.value = semInfo.slice(0, 1);
+		if (sem) {
+			semInputRef.current.value = sem.title.slice(3, 4);
+			yearInputRef.current.value = sem.title.slice(0, 1);
 		}
-	}, [semInfo, show]);
+	}, [sem, show]);
 
 	return (
 		<BaseForm onSubmit={submitSemTitle}>
@@ -34,7 +41,6 @@ const EditSemInfoModal = ({ show, setShow, onSave, semInfo }) => {
 				hasActionButton
 				actionIsSubmit
 				onClose={onModalClose}>
-				{/* <BaseInput label='Curriculum Title' required ref={curriculumTitleInputRef} /> */}
 				<BaseDropdown
 					label='Year'
 					options={['1', '2', '3', '4', '5', '6', '7', '8', '9']}

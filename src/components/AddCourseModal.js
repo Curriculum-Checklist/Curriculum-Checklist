@@ -27,8 +27,7 @@ const AddCourseModal = ({ show, setShowAddCourseModal, addCourse }) => {
 			titleInputRef.current.value,
 			unitsInputRef.current.value,
 			statusInputRef.current.value,
-			gradeInputRef.current.value,
-
+			gradeInputRef.current.value
 		);
 		addCourse(newCourse);
 		closeModal();
@@ -51,15 +50,7 @@ const AddCourseModal = ({ show, setShowAddCourseModal, addCourse }) => {
 				<BaseInput label='Title' required ref={titleInputRef} />
 				<BaseInput label='Code' required ref={codeInputRef} />
 				<BaseInput label='Units' type='number' required ref={unitsInputRef} />
-				<BaseDropdown
-					label='Status'
-					options={[
-						'Not Taken',
-						'Taking',
-						'Taken',
-					]}
-					ref={statusInputRef}
-				/>
+				<BaseDropdown label='Status' options={['Not Taken', 'Taking', 'Taken']} ref={statusInputRef} />
 				<BaseDropdown
 					label='Course Grade'
 					options={[
@@ -76,10 +67,10 @@ const AddCourseModal = ({ show, setShowAddCourseModal, addCourse }) => {
 						'5.00',
 						'INC',
 						'DRP',
+						'N/A',
 					]}
 					ref={gradeInputRef}
 				/>
-
 			</BaseModal>
 		</BaseForm>
 	);

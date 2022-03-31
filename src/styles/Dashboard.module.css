@@ -16,8 +16,8 @@
 
 
 .addSemCard {
-    height: 330px;
-    width: 200px;
+    height: 380px;
+    width: 230px;
     background-color: var(--gray-2);
     border-radius: 15px;
     outline: none;
@@ -50,9 +50,13 @@
 
 
 .grid {
-    display: grid;
-    /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: 100%;
+    /* display: grid;
     grid-template-columns: 185px 185px 185px 185px 185px 185px;
     grid-gap: 40px;
-    margin-top: 30px;
+    margin-top: 30px; */
 }

@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import AddCourseModal from '../components/AddCourseModal';
-import styles from '../styles/SemCard.module.css';
+import clsx from 'clsx';
+import React, { useContext, useEffect, useState } from 'react';
 import addCircularImg from '../assets/add_circular.svg';
 import pencilGreenImg from '../assets/pencil_green.svg';
-import clsx from 'clsx';
-import Divider from './Divider';
+import AddCourseModal from '../components/AddCourseModal';
+import { DashboardContext } from '../pages/Dashboard';
+import styles from '../styles/SemCard.module.css';
 import CourseRow from './CourseRow';
-import EditSemInfoModal from '../components/EditSemInfoModal';
+import Divider from './Divider';
 
 // import 'react-perfect-scrollbar/dist/css/styles.css';
 // import PerfectScrollbar from 'react-perfect-scrollbar';
 
-const SemCard = ({ sem, editMode }) => {
+const SemCard = ({ sem }) => {
 	const [showAddCourseModal, setShowAddCourseModal] = useState(false);
-	const [showEditSemInfoModal, setShowEditSemInfoModal] = useState(false);
 	const [courses, setCourses] = useState([...sem.courses]);
+	const { editMode, setShowEditSemInfoModal, setSelectedSem } = useContext(DashboardContext);
 
 	const addCourse = (course) => {
 		sem.courses.push(course);
@@ -22,9 +22,10 @@ const SemCard = ({ sem, editMode }) => {
 		setShowAddCourseModal(false);
 	};
 
-	function updateSemInfo(newSemTitle) {
-		sem.title = newSemTitle;
-	}
+	const onEdit = () => {
+		setSelectedSem(sem);
+		setShowEditSemInfoModal(true);
+	};
 
 	useEffect(() => {
 		setCourses([...sem.courses]);
@@ -35,17 +36,12 @@ const SemCard = ({ sem, editMode }) => {
 			<h2 className={styles.title}>
 				{sem.title}
 				{editMode && (
-					<img
-						className='pencilGreenImg'
-						src={pencilGreenImg}
-						alt='Edit Semester'
-						onClick={() => setShowEditSemInfoModal(true)}
-					/>
+					<img className='pencilGreenImg' src={pencilGreenImg} alt='Edit Semester' onClick={onEdit} />
 				)}
 			</h2>
 			<Divider margin={0} />
 			{courses.map((course, index) => (
-				<CourseRow key={course.title} course={course} index={index} editMode={editMode} />
+				<CourseRow key={course.title} course={course} index={index} />
 			))}
 
 			{editMode && (
@@ -63,12 +59,6 @@ const SemCard = ({ sem, editMode }) => {
 				addCourse={addCourse}
 				setShowAddCourseModal={setShowAddCourseModal}
 				show={showAddCourseModal}
-			/>
-			<EditSemInfoModal
-				show={showEditSemInfoModal}
-				setShow={setShowEditSemInfoModal}
-				onSave={updateSemInfo}
-				semInfo={sem.title}
 			/>
 		</div>
 	);

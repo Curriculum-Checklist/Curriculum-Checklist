@@ -13,11 +13,16 @@
 }
 
 .clickable:hover {
-    background-color: var(--gray-3);
+    background-color: var(--gray-3) !important;
+}
+
+.taking {
+    background: linear-gradient(to right, var(--yellow-alpha-theme), transparent);
 }
 
 
 .leftOuter {
+    flex: 1;
     display: flex;
     align-items: stretch;
     width: 55%;
@@ -30,31 +35,30 @@
 }
 
 .middle {
-    display: flex;
-    text-align: center;
-    align-items: center;
-    vertical-align: middle;
-
     border: solid;
-    border-color: rgb(196, 31, 64);
-    border-width: 3px;
-    border-radius: 12px;
-    height: 35px;
-    width: 70px;
-    
+    border-color: var(--red-theme);
+    border-width: 1px;
+    border-radius: 6px;
+    padding: 0;
+    height: 28px;
+    width: 42px;
+
     background-color: transparent;
 }
 
 .status {
     font-size: 0.65rem;
-    font-weight: 500;
+    font-weight: 400;
     margin: auto;
+    line-height: 1.1;
 
 }
 
 .right {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
     padding-right: 10px;
     padding-left: 6px;
 }
@@ -79,4 +83,3 @@
 .units {
     margin: 0;
 }
-

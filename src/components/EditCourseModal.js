@@ -1,52 +1,44 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
+import { DashboardContext } from '../pages/Dashboard';
 import BaseDropdown from './BaseDropdown';
 import BaseForm from './BaseForm';
 import BaseInput from './BaseInput';
 import BaseModal from './BaseModal';
 
-const EditCourseModal = ({
-	show,
-	setShowEditCourseModal,
-	editCourse,
-	courseTitle,
-	courseCode,
-	courseUnits,
-	courseGrade,
-}) => {
+const EditCourseModal = ({ onSave }) => {
 	const codeInputRef = useRef();
 	const titleInputRef = useRef();
 	const unitsInputRef = useRef();
 	const gradeInputRef = useRef();
+	const statusInputRef = useRef();
 
-	const clearInputs = () => {
-		codeInputRef.current.value = courseCode;
-		titleInputRef.current.value = courseTitle;
-		unitsInputRef.current.value = courseUnits;
-		gradeInputRef.current.value = courseGrade;
-	};
+	const { showEditCourseModal: show, setShowEditCourseModal, selectedCourse: course } = useContext(DashboardContext);
 
 	const submitCourse = (e) => {
 		e.preventDefault();
-		editCourse(
+		onSave(
 			titleInputRef.current.value,
 			codeInputRef.current.value,
 			unitsInputRef.current.value,
-			gradeInputRef.current.value
+			gradeInputRef.current.value,
+			statusInputRef.current.value
 		);
 		closeModal();
 	};
 
-	const closeModal = (e) => {
-		clearInputs();
+	const closeModal = () => {
 		setShowEditCourseModal(false);
 	};
 
 	useEffect(() => {
-		if (courseCode) codeInputRef.current.value = courseCode;
-		if (courseTitle) titleInputRef.current.value = courseTitle;
-		if (courseUnits) unitsInputRef.current.value = courseUnits;
-		if (courseGrade) gradeInputRef.current.value = courseGrade;
-	}, [courseCode, courseTitle, courseUnits, courseGrade, show]);
+		if (course) {
+			codeInputRef.current.value = course.code;
+			titleInputRef.current.value = course.title;
+			unitsInputRef.current.value = course.units;
+			gradeInputRef.current.value = course.grade;
+			statusInputRef.current.value = course.status;
+		}
+	}, [course, show]);
 
 	return (
 		<BaseForm onSubmit={submitCourse}>
@@ -60,6 +52,7 @@ const EditCourseModal = ({
 				<BaseInput label='Title' required ref={titleInputRef} />
 				<BaseInput label='Code' required ref={codeInputRef} />
 				<BaseInput label='Units' type='number' required ref={unitsInputRef} />
+				<BaseDropdown label='Status' options={['Not Taken', 'Taking', 'Taken']} ref={statusInputRef} />
 				<BaseDropdown
 					label='Course Grade'
 					options={[
@@ -76,6 +69,7 @@ const EditCourseModal = ({
 						'5.00',
 						'INC',
 						'DRP',
+						'N/A',
 					]}
 					ref={gradeInputRef}
 				/>
