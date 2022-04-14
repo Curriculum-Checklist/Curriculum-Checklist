@@ -60,3 +60,41 @@
     grid-gap: 40px;
     margin-top: 30px; */
 }
+
+.reqGWACard {
+    height: 220px;
+    width: 460px;
+    background-color: var(--gray-2);
+    border-radius: 15px;
+    margin-top: 50px;
+    outline: none;
+    border: none;
+    background-image: linear-gradient(to right, black, rgb(57, 57, 57));
+    font-size: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.1s linear;
+}
+
+.gwaTitle {
+    padding-bottom: 10px;
+    padding-left: 15px;
+    font-size: 1.5rem; 
+}
+
+
+.honors {
+    margin: 4px;
+    padding-left: 15px;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.reqGrade {
+    position: relative;
+    left: 20%;
+}

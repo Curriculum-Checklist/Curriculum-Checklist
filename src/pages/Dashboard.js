@@ -159,6 +159,23 @@ export default function Dashboard() {
 					)}
 				</div>
 
+				<div className={styles.reqGWACard}>
+					<p className={styles.gwaTitle}>GWA Required</p>
+					
+					<div className={styles.honors}>
+						<p>Summa Cum Laude</p>
+						<p className={styles.reqGrade}>1.20</p>
+					</div>
+					<div className={styles.honors}>
+						<p>Magna Cum Laude</p>
+						<p className={styles.reqGrade}>1.45</p>
+					</div>
+					<div className={styles.honors}>
+						<p>Cum Laude</p>
+						<p className={styles.reqGrade}>1.75</p>
+					</div>
+				</div>
+
 				<EditCurriculumInfoModal onSave={updateCurriculumInfo} />
 				<EditSemInfoModal onSave={updateSemInfo} />
 				<EditCourseModal onSave={updateCourse} />
