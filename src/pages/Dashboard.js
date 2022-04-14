@@ -158,21 +158,20 @@ export default function Dashboard() {
 						</div>
 					)}
 				</div>
-
+				{/* GWA Required Card} */}
 				<div className={styles.reqGWACard}>
 					<p className={styles.gwaTitle}>GWA Required</p>
-					
-					<div className={styles.honors}>
-						<p>Summa Cum Laude</p>
-						<p className={styles.reqGrade}>1.20</p>
-					</div>
-					<div className={styles.honors}>
-						<p>Magna Cum Laude</p>
-						<p className={styles.reqGrade}>1.45</p>
-					</div>
-					<div className={styles.honors}>
-						<p>Cum Laude</p>
-						<p className={styles.reqGrade}>1.75</p>
+					<div className={styles.honorDiv}>
+						<div className={styles.honorCol}>
+							<p>Summa Cum Laude</p>
+							<p>Magna Cum Laude</p>
+							<p>Cum Laude</p>
+						</div>
+						<div className={styles.honorCol}>
+							<p>1.20</p>
+							<p>1.45</p>
+							<p>1.75</p>
+						</div>
 					</div>
 				</div>
 

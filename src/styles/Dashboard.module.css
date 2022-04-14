@@ -62,7 +62,7 @@
 }
 
 .reqGWACard {
-    height: 220px;
+    height: 200px;
     width: 460px;
     background-color: var(--gray-2);
     border-radius: 15px;
@@ -81,20 +81,22 @@
 
 .gwaTitle {
     padding-bottom: 10px;
+    padding-top: 10px;
     padding-left: 15px;
     font-size: 1.5rem; 
 }
 
-
-.honors {
+.honorCol {
     margin: 4px;
     padding-left: 15px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    padding-right: 80px;
 }
 
-.reqGrade {
-    position: relative;
-    left: 20%;
+.honorDiv{
+    display:flex;
+    flex-direction: row;
+
 }
