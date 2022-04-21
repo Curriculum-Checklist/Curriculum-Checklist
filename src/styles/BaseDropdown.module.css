@@ -1,3 +1,9 @@
+.container {
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
 .label {
     color: var(--light-gray);
     font-size: 1rem;

@@ -51,11 +51,15 @@ const CourseRow = ({ course, index }) => {
 
 			<div className={styles.right}>
 				{editMode && (
-					<button type='button' className={styles.middle}>
+					<button type='button' className={styles.middle} style={{ borderColor: `var(--${color}-theme)` }}>
 						<p className={styles.status}>{course.status}</p>
 					</button>
 				)}
-				<p className={styles.units}>{course.units}</p>
+				<p className={styles.units}>
+					<span style={{ opacity: course.requiredGrade ? 0 : 1 }}>(</span>
+					<span>{course.units}</span>
+					<span style={{ opacity: course.requiredGrade ? 0 : 1 }}>)</span>
+				</p>
 			</div>
 		</div>
 	);

@@ -1,0 +1,46 @@
+.container {
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    --slidingBarWidth: 50px;
+    --innerCircleLeftPadding: 6px;
+    --innerCircleWidth: 18px;
+}
+
+.label {
+    color: var(--light-gray);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.slidingBar {
+    cursor: pointer;
+    width: var(--slidingBarWidth);
+    height: 25px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease-out;
+}
+
+.onSlidingBar {
+    background-color: var(--green);
+    padding-left: calc(var(--slidingBarWidth) - var(--innerCircleLeftPadding) - var(--innerCircleWidth));
+    opacity: 1;
+}
+
+.offSlidingBar {
+    background-color: var(--light-gray);
+    padding-left: var(--innerCircleLeftPadding);
+    opacity: 0.7;
+}
+
+.innerCircle {
+    background-color: var(--gray-2);
+    width: var(--innerCircleWidth);
+    height: 18px;
+    border-radius: 50%;
+
+}

@@ -6,6 +6,13 @@ export default class Semester {
 		this.courses = courses;
 	}
 
+	duplicate() {
+		return new Semester(
+			this.title,
+			this.courses.map((course) => course.duplicate())
+		);
+	}
+
 	toFirestore() {
 		return {
 			title: this.title,
