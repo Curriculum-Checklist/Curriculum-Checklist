@@ -89,12 +89,13 @@ export default function Dashboard() {
 		selectedSem.title = newSemTitle;
 	}
 
-	const updateCourse = (courseTitle, courseCode, courseUnits, courseGrade, courseStatus) => {
+	const updateCourse = (courseTitle, courseCode, courseUnits, courseStatus, courseGrade, requiredGrade) => {
 		selectedCourse.title = courseTitle;
 		selectedCourse.code = courseCode;
 		selectedCourse.units = courseUnits;
-		selectedCourse.grade = courseGrade;
 		selectedCourse.status = courseStatus;
+		selectedCourse.grade = courseGrade;
+		selectedCourse.requiredGrade = requiredGrade;
 	};
 
 	//TODO - use dropdown to notify user on failed logout

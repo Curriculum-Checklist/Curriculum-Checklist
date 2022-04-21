@@ -1,6 +1,5 @@
-import Course from './course';
-import { LocalStorageHelper } from './localStorageHelper';
 import Semester from './semester';
+import { LocalStorageHelper } from './localStorageHelper';
 
 export default class Curriculum {
 	constructor(programName, schoolName, semesters) {
@@ -12,15 +11,24 @@ export default class Curriculum {
 	copyFrom(curriculum) {
 		this.programName = curriculum.programName;
 		this.schoolName = curriculum.schoolName;
-		this.semesters = [];
-		for (const semester of curriculum.semesters) {
-			const newSemester = new Semester(semester.title, []);
-			for (const course of semester.courses) {
-				const newCourse = new Course(course.code, course.title, course.units, course.status, course.grade);
-				newSemester.courses.push(newCourse);
-			}
-			this.semesters.push(newSemester);
-		}
+		this.semesters = curriculum.semesters.map((sem) => sem.duplicate());
+		// this.semesters = [];
+		// for (const semester of curriculum.semesters) {
+		// 	const newSemester = new Semester(semester.title, []);
+		// 	for (const course of semester.courses) {
+		// 		const newCourse = new Course(course.code, course.title, course.units, course.status, course.grade);
+		// 		newSemester.courses.push(newCourse);
+		// 	}
+		// 	this.semesters.push(newSemester);
+		// }
+	}
+
+	duplicate() {
+		return new Curriculum(
+			this.programName,
+			this.schoolName,
+			this.semesters.map((sem) => sem.duplicate())
+		);
 	}
 
 	clear() {

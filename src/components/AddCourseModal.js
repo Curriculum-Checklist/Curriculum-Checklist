@@ -1,16 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Course from '../classes/course';
 import BaseDropdown from './BaseDropdown';
 import BaseForm from './BaseForm';
 import BaseInput from './BaseInput';
 import BaseModal from './BaseModal';
+import BaseSlidingBar from './BaseSlidingBar';
 
 const AddCourseModal = ({ show, setShowAddCourseModal, addCourse }) => {
 	const codeInputRef = useRef();
 	const titleInputRef = useRef();
 	const unitsInputRef = useRef();
-	const gradeInputRef = useRef();
 	const statusInputRef = useRef();
+	const gradeInputRef = useRef();
+	const [requiredGrade, setRequiredGrade] = useState(true);
 
 	const clearInputs = () => {
 		codeInputRef.current.value = '';
@@ -18,6 +20,7 @@ const AddCourseModal = ({ show, setShowAddCourseModal, addCourse }) => {
 		unitsInputRef.current.value = '';
 		statusInputRef.current.value = 'Not Taken';
 		gradeInputRef.current.value = '1.00';
+		setRequiredGrade(true);
 	};
 
 	const submitCourse = (e) => {
@@ -27,7 +30,8 @@ const AddCourseModal = ({ show, setShowAddCourseModal, addCourse }) => {
 			titleInputRef.current.value,
 			unitsInputRef.current.value,
 			statusInputRef.current.value,
-			gradeInputRef.current.value
+			gradeInputRef.current.value,
+			requiredGrade
 		);
 		addCourse(newCourse);
 		closeModal();
@@ -47,8 +51,8 @@ const AddCourseModal = ({ show, setShowAddCourseModal, addCourse }) => {
 				hasActionButton
 				actionIsSubmit
 				onClose={closeModal}>
-				<BaseInput label='Title' required ref={titleInputRef} />
 				<BaseInput label='Code' required ref={codeInputRef} />
+				<BaseInput label='Title' required ref={titleInputRef} />
 				<BaseInput label='Units' type='number' required ref={unitsInputRef} />
 				<BaseDropdown label='Status' options={['Not Taken', 'Taking', 'Taken']} ref={statusInputRef} />
 				<BaseDropdown
@@ -70,6 +74,11 @@ const AddCourseModal = ({ show, setShowAddCourseModal, addCourse }) => {
 						'N/A',
 					]}
 					ref={gradeInputRef}
+				/>
+				<BaseSlidingBar
+					label='Included in Grade Computation'
+					value={requiredGrade}
+					setValue={setRequiredGrade}
 				/>
 			</BaseModal>
 		</BaseForm>
