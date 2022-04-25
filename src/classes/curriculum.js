@@ -89,4 +89,17 @@ export default class Curriculum {
 			curriculumData.semesters.map((semesterData) => Semester.fromSemesterData(semesterData))
 		);
 	}
+
+	static fromFirestoreSharedCurriculumData(curriculumData) {
+		const fireBaseTimestampToDate = (time) => new Date(time.seconds * 1000 + time.nanoseconds / 1000000);
+		return new Curriculum(
+			curriculumData.author,
+			curriculumData.programName,
+			curriculumData.schoolName,
+			fireBaseTimestampToDate(curriculumData.lastEdit),
+			false,
+			'',
+			curriculumData.semesters.map((semesterData) => Semester.fromSemesterData(semesterData))
+		);
+	}
 }

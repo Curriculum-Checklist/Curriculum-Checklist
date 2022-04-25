@@ -56,6 +56,8 @@ const DeleteCurriculumModal = ({
 				hasCancelButton
 				hasActionButton
 				actionIsSubmit
+				actionButtonColor='ocean-blue'
+				actionButtonText='Delete'
 				onClose={onModalClose}>
 				<p className={styles.description}>
 					Are you sure you want to delete{' '}

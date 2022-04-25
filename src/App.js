@@ -41,7 +41,7 @@ function App() {
 					</AuthProvider>
 				</Layout>
 			</DeviceProvider>
-			<ToastContainer />
+			<ToastContainer theme='dark' />
 		</Router>
 	);
 }

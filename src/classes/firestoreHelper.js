@@ -99,4 +99,12 @@ export class FirestoreHelper {
 		});
 		await deleteDoc(doc(this.db, 'sharedCurricula', sharedCurriculumId));
 	}
+
+	async getCurriculumByCode(code) {
+		if (!this.uid) return;
+		const curriculumDoc = await getDoc(doc(this.db, 'sharedCurricula', code));
+		if (!curriculumDoc.exists()) return;
+		const curriculumData = curriculumDoc.data();
+		return curriculumData;
+	}
 }
