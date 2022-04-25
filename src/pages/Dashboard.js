@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import addCircularImg from '../assets/add_circular.svg';
 import GetCurriculumBanner from '../components/GetCurriculumBanner';
 import SemCard from '../components/SemCard';
@@ -23,6 +23,7 @@ export const DashboardContext = React.createContext();
 
 export default function Dashboard() {
 	const { curriculum } = useDatabase();
+	console.log(curriculum);
 	const [editMode, setEditMode] = useState(false);
 
 	//! Curriculum Editing
@@ -40,6 +41,15 @@ export default function Dashboard() {
 
 	const [sems, setSems] = useState(curriculum ? [...curriculum.semesters] : []); //List of sems for teting only
 	const { firestoreHelper } = useFirestore();
+
+	useEffect(() => {
+		if (curriculum) {
+			const curriculumCopy = curriculum.duplicate();
+			setProgramName(curriculumCopy.programName);
+			setSchoolName(curriculumCopy.schoolName);
+			setSems(curriculumCopy.semesters);
+		}
+	}, [curriculum]);
 
 	const addSem = () => {
 		const title = sems.length === 0 ? '1Y-1S' : getNextSem(sems[sems.length - 1].title);

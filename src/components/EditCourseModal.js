@@ -38,8 +38,8 @@ const EditCourseModal = ({ onSave }) => {
 			codeInputRef.current.value = course.code;
 			titleInputRef.current.value = course.title;
 			unitsInputRef.current.value = course.units;
-			gradeInputRef.current.value = course.grade;
 			statusInputRef.current.value = course.status;
+			gradeInputRef.current.value = course.grade;
 			setRequiredGrade(course.requiredGrade);
 		}
 	}, [course, show]);
