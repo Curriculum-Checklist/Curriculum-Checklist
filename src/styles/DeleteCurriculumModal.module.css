@@ -1,0 +1,9 @@
+.description {
+    color: var(--light-gray);
+}
+
+
+.descriptionHighlight {
+
+    color: var(--ocean-blue-light);
+}

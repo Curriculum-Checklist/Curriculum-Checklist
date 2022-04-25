@@ -22,8 +22,7 @@ const editingCurriculum = new Curriculum();
 export const DashboardContext = React.createContext();
 
 export default function Dashboard() {
-	const { curriculum } = useDatabase();
-	console.log(curriculum);
+	const { user, curriculum } = useDatabase();
 	const [editMode, setEditMode] = useState(false);
 
 	//! Curriculum Editing
@@ -76,14 +75,17 @@ export default function Dashboard() {
 		setEditMode(false);
 	}
 
-	function saveChanges() {
+	async function saveChanges() {
 		curriculum.copyFrom(editingCurriculum);
 		try {
-			firestoreHelper.setCurriculum(curriculum);
+			await firestoreHelper.setCurriculum(user.selectedCurriculum, curriculum);
 		} catch (e) {
 			console.log('Failed to save curriculum online', e.message);
 		}
-		LocalStorageHelper.set('curriculum', curriculum);
+		const newUser = user.duplicate();
+		newUser.curricula[user.selectedCurriculum] = curriculum;
+		LocalStorageHelper.set('user', newUser);
+
 		setCurriculumTo(curriculum);
 		setEditMode(false);
 	}

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Curriculum from '../classes/curriculum';
 import { LocalStorageHelper } from '../classes/localStorageHelper';
+import User from '../classes/user';
 import { useAuth } from './AuthContext';
 import { useFirestore } from './FirestoreContext';
 
@@ -13,26 +13,35 @@ export function useDatabase() {
 export const DatabaseProvider = ({ children }) => {
 	const { currentUser } = useAuth();
 	const { firestoreHelper } = useFirestore();
-	const [curriculum, setCurriculum] = useState(Curriculum.fromLocalStorage());
+	const [user, setUser] = useState(User.fromLocalStorage());
+	const [curriculum, setCurriculum] = useState();
 
 	useEffect(() => {
-		const localCurriculum = Curriculum.fromLocalStorage();
+		const localUser = User.fromLocalStorage();
 
-		async function getCurriculumFromFirestore() {
-			const curriculum = await Curriculum.fromFirestore(firestoreHelper);
-			if (!curriculum) return;
-			setCurriculum(curriculum);
-			LocalStorageHelper.set('curriculum', curriculum);
+		async function getUserFromFirestore() {
+			const user = await User.fromFirestore(firestoreHelper);
+			if (!user) return;
+			setUser(user);
+			LocalStorageHelper.set('user', user);
 		}
 
-		if (localCurriculum) {
-			setCurriculum(localCurriculum);
+		if (localUser) {
+			setUser(localUser);
 			return;
 		} else {
-			getCurriculumFromFirestore();
+			getUserFromFirestore();
 		}
 	}, [currentUser, firestoreHelper]);
 
-	const value = { curriculum, setCurriculum };
+	useEffect(() => {
+		if (!user || !user.selectedCurriculum || !(user.selectedCurriculum in user.curricula)) {
+			setCurriculum(undefined);
+		} else {
+			setCurriculum(user.curricula[user.selectedCurriculum]);
+		}
+	}, [user]);
+
+	const value = { user, setUser, curriculum };
 	return <DatabaseContext.Provider value={value}>{children}</DatabaseContext.Provider>;
 };

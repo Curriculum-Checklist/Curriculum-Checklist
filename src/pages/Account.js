@@ -8,7 +8,7 @@ import notify from '../function/notify';
 import styles from '../styles/Account.module.css';
 
 export default function Account() {
-	const { setCurriculum } = useDatabase();
+	const { setUser } = useDatabase();
 	const [error, setError] = useState('');
 	const { logout } = useAuth();
 	const go_to = useNavigate();
@@ -17,7 +17,7 @@ export default function Account() {
 		setError('');
 
 		try {
-			setCurriculum(undefined);
+			setUser(undefined);
 			LocalStorageHelper.clear();
 			await logout();
 			go_to('/login');
