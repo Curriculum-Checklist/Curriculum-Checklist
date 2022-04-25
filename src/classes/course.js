@@ -23,7 +23,18 @@ export default class Course {
 		};
 	}
 
-	static fromFirestore(courseData) {
+	toSharedFirestore() {
+		return {
+			code: this.code,
+			title: this.title,
+			units: this.units,
+			status: 'Not Taken',
+			grade: 'N/A',
+			requiredGrade: this.requiredGrade,
+		};
+	}
+
+	static fromCourseData(courseData) {
 		return new Course(
 			courseData.code,
 			courseData.title,

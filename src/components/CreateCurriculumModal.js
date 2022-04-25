@@ -12,22 +12,35 @@ const CreateCurriculumModal = ({ show, setShowCreateCurriculumModal, initialProg
 	const programNameInputRef = useRef();
 	const schoolNameInputRef = useRef();
 	const { firestoreHelper } = useFirestore();
-	const { setCurriculum } = useDatabase();
+	const { user, setUser } = useDatabase();
 	const go_to = useNavigate();
 
-	const submitCurriculum = (e) => {
+	const submitCurriculum = async (e) => {
 		e.preventDefault();
-		const newCurriculum = new Curriculum(programNameInputRef.current.value, schoolNameInputRef.current.value, []);
-		try {
-			firestoreHelper.setCurriculum(newCurriculum);
-		} catch (e) {
-			console.log('Failed to save curriculum online', e.message);
-		}
+		const newCurriculum = new Curriculum(
+			user.name,
+			programNameInputRef.current.value,
+			schoolNameInputRef.current.value,
+			new Date(),
+			false,
+			'',
+			[]
+		);
 
-		LocalStorageHelper.set('curriculum', newCurriculum);
-		setCurriculum(newCurriculum);
-		setShowCreateCurriculumModal(false);
-		go_to('/');
+		try {
+			const curriculumId = await firestoreHelper.addCurriculum(newCurriculum);
+			await firestoreHelper.setSelectedCurriculum(curriculumId);
+
+			const newUser = user.duplicate();
+			newUser.curricula[curriculumId] = newCurriculum;
+			newUser.selectedCurriculum = curriculumId;
+			LocalStorageHelper.set('user', newUser);
+			setUser(newUser);
+			setShowCreateCurriculumModal(false);
+			go_to('/');
+		} catch (e) {
+			console.log('Failed to create curriculum', e.message);
+		}
 	};
 
 	const onModalClose = (e) => {

@@ -20,10 +20,17 @@ export default class Semester {
 		};
 	}
 
-	static fromFirestore(semesterData) {
+	toSharedFirestore() {
+		return {
+			title: this.title,
+			courses: this.courses.map((course) => course.toSharedFirestore()),
+		};
+	}
+
+	static fromSemesterData(semesterData) {
 		return new Semester(
 			semesterData.title,
-			semesterData.courses.map((courseData) => Course.fromFirestore(courseData))
+			semesterData.courses.map((courseData) => Course.fromCourseData(courseData))
 		);
 	}
 }

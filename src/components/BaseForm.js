@@ -1,7 +1,7 @@
 import React from 'react';
 const BaseForm = ({ onSubmit, children }) => {
 	return (
-		<form onSubmit={onSubmit} onAbort={() => console.log('aborted hehe')}>
+		<form onSubmit={onSubmit} onAbort={() => console.log('aborted')}>
 			{children}
 		</form>
 	);

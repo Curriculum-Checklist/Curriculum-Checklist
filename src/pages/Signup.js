@@ -1,5 +1,7 @@
+import clsx from 'clsx';
 import React, { useRef, useState } from 'react';
 import { Alert, Button, Form } from 'react-bootstrap';
+import GoogleButton from 'react-google-button';
 import { Link, useNavigate } from 'react-router-dom';
 
 import SignInWrapper from '../components/SignInWrapper';
@@ -10,6 +12,7 @@ export default function Signup() {
 	const emailRef = useRef();
 	const passwordRef = useRef();
 	const passwordConfirmRef = useRef();
+	const { googleSignIn } = useAuth();
 	const { signup } = useAuth();
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
@@ -28,6 +31,17 @@ export default function Signup() {
 			go_to('/');
 		} catch {
 			setError('Failed to create account');
+		}
+	}
+
+	async function googleSubmit(e) {
+		e.preventDefault();
+
+		try {
+			await googleSignIn();
+			go_to('/');
+		} catch (error) {
+			console.log(error.message);
 		}
 	}
 
@@ -52,6 +66,14 @@ export default function Signup() {
 					<Button disabled={loading} className={styles.signupButton} type='submit'>
 						Sign Up
 					</Button>
+				</Form>
+				<h4 className={styles.or}>or</h4>
+				<Form onSubmit={googleSubmit}>
+					<GoogleButton
+						className={clsx('w-100 text-center mt-3 g-btn', styles.googleButton)}
+						type='dark'
+						onClick={googleSubmit}
+					/>
 				</Form>
 			</div>
 			<div className={styles.bottomText}>

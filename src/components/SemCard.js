@@ -39,7 +39,7 @@ const SemCard = ({ sem }) => {
 					<img className='pencilGreenImg' src={pencilGreenImg} alt='Edit Semester' onClick={onEdit} />
 				)}
 			</h2>
-			<Divider margin={0} />
+			<Divider horizontalMargin={0} />
 			{courses.map((course, index) => (
 				<CourseRow key={course.title} course={course} index={index} />
 			))}

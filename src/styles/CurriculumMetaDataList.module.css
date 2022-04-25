@@ -1,23 +1,15 @@
-.container {
+.curriculaGrid {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
     width: 100%;
 }
 
-
-.programNameWrapper {
-    width: 100%;
-    display: flex;
-    align-items: flex-start;
-}
-
-.saveDiscardButtonsWrapper {
-    display: flex;
-    gap: 25px;
-}
-
-
-.addSemCard {
-    height: 380px;
-    width: 230px;
+.createCurriculumButton {
+    width: 228px;
+    height: 172px;
+    padding: 12px;
     background-color: var(--gray-2);
     border-radius: 15px;
     outline: none;
@@ -27,32 +19,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     cursor: pointer;
     transition: all 0.1s linear;
 }
 
-.addSemCard:hover {
+
+.createCurriculumButton:hover {
     background-color: var(--gray-3);
+    /* transform: translateY(-5px); */
 }
 
-.addSemCard:active {
+.createCurriculumButton:active {
     background-color: var(--gray-3);
     transform: scale(0.9);
 }
 
-
-.addSemCard h3 {
+.createCurriculumButton h3 {
     text-align: center;
     line-height: 1;
-}
-
-
-
-.grid {
-    margin-top: 40px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    width: 100%;
 }

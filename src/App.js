@@ -13,6 +13,8 @@ import { DeviceProvider } from './contexts/DeviceContext';
 import { DatabaseProvider } from './contexts/DatabaseContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Intro from './pages/Intro';
+import NameRequiredRoute from './components/NameRequiredRoute';
 
 function App() {
 	return (
@@ -26,9 +28,12 @@ function App() {
 									<Route path='/signup' element={<Signup />} />
 									<Route path='/login' element={<Login />} />
 									<Route path='/' element={<PrivateRoute />}>
-										<Route path='/Collection' element={<Collection />} />
-										<Route path='/Account' element={<Account />} />
-										<Route path='/' element={<Dashboard />} />
+										<Route path='/Intro' element={<Intro />} />
+										<Route path='/' element={<NameRequiredRoute />}>
+											<Route path='/Collection' element={<Collection />} />
+											<Route path='/Account' element={<Account />} />
+											<Route path='/' element={<Dashboard />} />
+										</Route>
 									</Route>
 								</Routes>
 							</DatabaseProvider>
@@ -36,7 +41,7 @@ function App() {
 					</AuthProvider>
 				</Layout>
 			</DeviceProvider>
-			<ToastContainer />
+			<ToastContainer theme='dark' />
 		</Router>
 	);
 }

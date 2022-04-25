@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+  <defs>
+    <rect id="rect-1" width="16" height="16" x="0" y="0"/>
+    <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="userSpaceOnUse">
+      <rect width="16" height="16" x="0" y="0" fill="black"/>
+      <use fill="white" xlink:href="#rect-1"/>
+    </mask>
+  </defs>
+  <g>
+    <use fill="none" xlink:href="#rect-1"/>
+    <g mask="url(#mask-2)">
+      <path fill="none" d="M0 0h16v16H0V0z"/>
+      <path fill="rgb(239,238,237)" fill-rule="evenodd" d="M6 10.8L3.66666667 8.46666667c-.26-.26-.67333334-.26-.93333334 0s-.26.67333333 0 .93333333l2.79333334 2.79333333c.26.26.68.26.94 0l7.06666666-7.06c.26-.26.26-.67333333 0-.93333333S12.86 3.94 12.6 4.2L6 10.8z"/>
+    </g>
+  </g>
+</svg>

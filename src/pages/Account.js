@@ -8,7 +8,7 @@ import notify from '../function/notify';
 import styles from '../styles/Account.module.css';
 
 export default function Account() {
-	const { setCurriculum } = useDatabase();
+	const { user, setUser } = useDatabase();
 	const [error, setError] = useState('');
 	const { logout } = useAuth();
 	const go_to = useNavigate();
@@ -17,7 +17,7 @@ export default function Account() {
 		setError('');
 
 		try {
-			setCurriculum(undefined);
+			setUser(undefined);
 			LocalStorageHelper.clear();
 			await logout();
 			go_to('/login');
@@ -32,6 +32,8 @@ export default function Account() {
 	return (
 		<div className={styles.container}>
 			<h1>Account</h1>
+			<p>Name: {user.name}</p>
+			<p>Email: {user.email}</p>
 			<BaseButton color='black' label='Log Out' onClick={handleLogout} />
 		</div>
 	);

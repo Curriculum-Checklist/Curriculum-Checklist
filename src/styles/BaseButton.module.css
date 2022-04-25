@@ -1,3 +1,7 @@
+.container {
+    display: flex;
+}
+
 .baseButton {
     border: 1px solid transparent;
     border-radius: 5px;
@@ -9,17 +13,34 @@
     align-items: center;
 }
 
-.tight {
+.tightContainer {
     padding: 5px 15px;
 }
 
-.baseButton:active {
+.smallContainer {
+    padding: 3px 10px;
+    font-size: 0.8rem;
+
+}
+
+.disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.baseButton:enabled:active {
     transform: scale(0.9);
 }
+
 
 .icon {
     width: 25px;
     padding-right: 5px;
+}
+
+.smallIcon {
+    width: 18px;
+    padding-right: 2px;
 }
 
 .transparent {
@@ -42,8 +63,18 @@
     border: 1px solid var(--gray-3);
 }
 
+.black-red {
+    background-color: #101113;
+    border: 1px solid var(--red);
+}
+
 .ocean-blue {
     background-color: var(--ocean-blue);
+    border: 1px solid var(--ocean-blue);
+}
+
+.black-ocean-blue {
+    background-color: #101113;
     border: 1px solid var(--ocean-blue);
 }
 

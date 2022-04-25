@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import addCircularImg from '../assets/add_circular.svg';
 import GetCurriculumBanner from '../components/GetCurriculumBanner';
 import SemCard from '../components/SemCard';
@@ -22,7 +22,7 @@ const editingCurriculum = new Curriculum();
 export const DashboardContext = React.createContext();
 
 export default function Dashboard() {
-	const { curriculum } = useDatabase();
+	const { user, curriculum } = useDatabase();
 	const [editMode, setEditMode] = useState(false);
 
 	//! Curriculum Editing
@@ -40,6 +40,15 @@ export default function Dashboard() {
 
 	const [sems, setSems] = useState(curriculum ? [...curriculum.semesters] : []); //List of sems for teting only
 	const { firestoreHelper } = useFirestore();
+
+	useEffect(() => {
+		if (curriculum) {
+			const curriculumCopy = curriculum.duplicate();
+			setProgramName(curriculumCopy.programName);
+			setSchoolName(curriculumCopy.schoolName);
+			setSems(curriculumCopy.semesters);
+		}
+	}, [curriculum]);
 
 	const addSem = () => {
 		const title = sems.length === 0 ? '1Y-1S' : getNextSem(sems[sems.length - 1].title);
@@ -66,14 +75,17 @@ export default function Dashboard() {
 		setEditMode(false);
 	}
 
-	function saveChanges() {
+	async function saveChanges() {
 		curriculum.copyFrom(editingCurriculum);
 		try {
-			firestoreHelper.setCurriculum(curriculum);
+			await firestoreHelper.setCurriculum(user.selectedCurriculum, curriculum);
 		} catch (e) {
 			console.log('Failed to save curriculum online', e.message);
 		}
-		LocalStorageHelper.set('curriculum', curriculum);
+		const newUser = user.duplicate();
+		newUser.curricula[user.selectedCurriculum] = curriculum;
+		LocalStorageHelper.set('user', newUser);
+
 		setCurriculumTo(curriculum);
 		setEditMode(false);
 	}
