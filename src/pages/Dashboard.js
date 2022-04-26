@@ -197,9 +197,9 @@ export default function Dashboard() {
 							<p>Cum Laude</p>
 						</div>
 						<div className={styles.honorCol}>
-							<p>{summaGWA}</p>
-							<p>{magnaGWA}</p>
-							<p>{laudeGWA}</p>
+							<p>{parseFloat(summaGWA).toFixed(2)}</p>
+							<p>{parseFloat(magnaGWA).toFixed(2)}</p>
+							<p>{parseFloat(laudeGWA).toFixed(2)}</p>
 						</div>
 					</div>
 				</div>
