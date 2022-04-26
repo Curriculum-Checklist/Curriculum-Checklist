@@ -51,7 +51,7 @@ const EditCourseModal = ({ onSave }) => {
 				onClose={closeModal}>
 				<BaseInput label='Title' required ref={titleInputRef} />
 				<BaseInput label='Code' required ref={codeInputRef} />
-				<BaseInput label='Units' type='number' required ref={unitsInputRef} />
+				<BaseInput label='Units' type='number' required needFloat ref={unitsInputRef} />
 				<BaseDropdown label='Status' options={['Not Taken', 'Taking', 'Taken']} ref={statusInputRef} />
 				<BaseDropdown
 					label='Course Grade'
