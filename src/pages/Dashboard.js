@@ -16,6 +16,7 @@ import { useFirestore } from '../contexts/FirestoreContext';
 import EditCurriculumInfoModal from '../components/EditCurriculumInfoModal';
 import EditCourseModal from '../components/EditCourseModal';
 import EditSemInfoModal from '../components/EditSemInfoModal';
+import EditRequiredGWAModal from '../components/EditRequiredGWAModal';
 
 const editingCurriculum = new Curriculum();
 
@@ -40,6 +41,13 @@ export default function Dashboard() {
 
 	const [sems, setSems] = useState(curriculum ? [...curriculum.semesters] : []); //List of sems for teting only
 	const { firestoreHelper } = useFirestore();
+
+	//! GWA Editing
+	const [showEditRequiredGWAModal, setShowEditRequiredGWAModal] = useState(false);
+	const summaGWA = LocalStorageHelper.get('summa', 1.20)
+	const magnaGWA = LocalStorageHelper.get('magna', 1.45)
+	const laudeGWA = LocalStorageHelper.get('laude', 1.75)
+	
 
 	const addSem = () => {
 		const title = sems.length === 0 ? '1Y-1S' : getNextSem(sems[sems.length - 1].title);
@@ -76,6 +84,12 @@ export default function Dashboard() {
 		LocalStorageHelper.set('curriculum', curriculum);
 		setCurriculumTo(curriculum);
 		setEditMode(false);
+	}
+
+	function saveGWA(newSummaGWA, newMagnaGWA, newLaudeGWA){
+		LocalStorageHelper.set('laude', newLaudeGWA);
+		LocalStorageHelper.set('summa', newSummaGWA);
+		LocalStorageHelper.set('magna', newMagnaGWA);
 	}
 
 	function updateCurriculumInfo(newProgramName, newSchoolName) {
@@ -124,6 +138,11 @@ export default function Dashboard() {
 				setShowEditCourseModal,
 				selectedCourse,
 				setSelectedCourse,
+
+				//! GWA editing
+				showEditRequiredGWAModal,
+				setShowEditRequiredGWAModal,
+				summaGWA, magnaGWA, laudeGWA
 			}}>
 			<div className={styles.container}>
 				<div className={styles.programNameWrapper}>
@@ -160,7 +179,17 @@ export default function Dashboard() {
 				</div>
 				{/* GWA Required Card} */}
 				<div className={styles.reqGWACard}>
-					<p className={styles.gwaTitle}>GWA Required</p>
+					<p className={styles.gwaTitle}>GWA Required   
+					{editMode && (
+						<img
+							className='pencilGreenImg'
+							src={pencilGreenImg}
+							alt='Edit Required GWA'
+							onClick={() => setShowEditRequiredGWAModal(true)}
+						/>
+					)}
+
+					</p>
 					<div className={styles.honorDiv}>
 						<div className={styles.honorCol}>
 							<p>Summa Cum Laude</p>
@@ -168,9 +197,9 @@ export default function Dashboard() {
 							<p>Cum Laude</p>
 						</div>
 						<div className={styles.honorCol}>
-							<p>1.20</p>
-							<p>1.45</p>
-							<p>1.75</p>
+							<p>{summaGWA}</p>
+							<p>{magnaGWA}</p>
+							<p>{laudeGWA}</p>
 						</div>
 					</div>
 				</div>
@@ -178,6 +207,7 @@ export default function Dashboard() {
 				<EditCurriculumInfoModal onSave={updateCurriculumInfo} />
 				<EditSemInfoModal onSave={updateSemInfo} />
 				<EditCourseModal onSave={updateCourse} />
+				<EditRequiredGWAModal onSave={saveGWA} />
 			</div>
 		</DashboardContext.Provider>
 	);
