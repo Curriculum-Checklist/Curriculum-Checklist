@@ -79,6 +79,24 @@
     justify-content: space-between;
 }
 
+.reqGWACard {
+    height: 200px;
+    width: 400px;
+    background-color: var(--gray-2);
+    border-radius: 15px;
+    margin-top: 50px;
+    outline: none;
+    border: none;
+    background-image: linear-gradient(to right, black, rgb(57, 57, 57));
+    font-size: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.1s linear;
+}
+
 .gwaTitle {
     padding-top: 10px;
     padding-left: 15px;
@@ -94,4 +112,32 @@
     height: 200px;
     width: 200px;
     margin-right: 15px;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.1s linear;
+}
+
+.gwaTitle {
+    padding-bottom: 6px;
+    padding-top: 10px;
+    padding-left: 15px;
+    font-size: 1.5rem; 
+    display: flex;
+    justify-content: space-between;
+}
+
+.honorCol {
+    margin: 4px;
+    padding-left: 15px;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    padding-right: 80px;
+}
+
+.honorDiv{
+    display:flex;
+    flex-direction: row;
 }

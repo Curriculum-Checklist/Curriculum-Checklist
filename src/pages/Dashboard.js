@@ -17,6 +17,7 @@ import EditCurriculumInfoModal from '../components/EditCurriculumInfoModal';
 import EditCourseModal from '../components/EditCourseModal';
 import EditSemInfoModal from '../components/EditSemInfoModal';
 import { PieChart } from 'react-minimal-pie-chart';
+import EditRequiredGWAModal from '../components/EditRequiredGWAModal';
 
 const editingCurriculum = new Curriculum();
 
@@ -50,6 +51,12 @@ export default function Dashboard() {
 			setSems(curriculumCopy.semesters);
 		}
 	}, [curriculum]);
+	//! GWA Editing
+	const [showEditRequiredGWAModal, setShowEditRequiredGWAModal] = useState(false);
+	const summaGWA = LocalStorageHelper.get('summa', 1.20)
+	const magnaGWA = LocalStorageHelper.get('magna', 1.45)
+	const laudeGWA = LocalStorageHelper.get('laude', 1.75)
+	
 
 	const addSem = () => {
 		const title = sems.length === 0 ? '1Y-1S' : getNextSem(sems[sems.length - 1].title);
@@ -89,6 +96,12 @@ export default function Dashboard() {
 
 		setCurriculumTo(curriculum);
 		setEditMode(false);
+	}
+
+	function saveGWA(newSummaGWA, newMagnaGWA, newLaudeGWA){
+		LocalStorageHelper.set('laude', newLaudeGWA);
+		LocalStorageHelper.set('summa', newSummaGWA);
+		LocalStorageHelper.set('magna', newMagnaGWA);
 	}
 
 	function updateCurriculumInfo(newProgramName, newSchoolName) {
@@ -222,6 +235,11 @@ export default function Dashboard() {
 				setShowEditCourseModal,
 				selectedCourse,
 				setSelectedCourse,
+
+				//! GWA editing
+				showEditRequiredGWAModal,
+				setShowEditRequiredGWAModal,
+				summaGWA, magnaGWA, laudeGWA
 			}}>
 			<div className={styles.container}>
 				<div className={styles.programNameWrapper}>
@@ -290,9 +308,37 @@ export default function Dashboard() {
 						/>
 					</div>
 				</div>
+				{/* GWA Required Card} */}
+				<div className={styles.reqGWACard}>
+					<p className={styles.gwaTitle}>GWA Required   
+					{editMode && (
+						<img
+							className='pencilGreenImg'
+							src={pencilGreenImg}
+							alt='Edit Required GWA'
+							onClick={() => setShowEditRequiredGWAModal(true)}
+						/>
+					)}
+
+					</p>
+					<div className={styles.honorDiv}>
+						<div className={styles.honorCol}>
+							<p>Summa Cum Laude</p>
+							<p>Magna Cum Laude</p>
+							<p>Cum Laude</p>
+						</div>
+						<div className={styles.honorCol}>
+							<p>{parseFloat(summaGWA).toFixed(2)}</p>
+							<p>{parseFloat(magnaGWA).toFixed(2)}</p>
+							<p>{parseFloat(laudeGWA).toFixed(2)}</p>
+						</div>
+					</div>
+				</div>
+
 				<EditCurriculumInfoModal onSave={updateCurriculumInfo} />
 				<EditSemInfoModal onSave={updateSemInfo} />
 				<EditCourseModal onSave={updateCourse} />
+				<EditRequiredGWAModal onSave={saveGWA} />
 			</div>
 		</DashboardContext.Provider>
 	);
