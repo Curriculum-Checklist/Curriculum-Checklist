@@ -6,12 +6,15 @@ export class FirestoreHelper {
 		this.uid = currentUser?.uid ?? '';
 	}
 
-	async createUser(name, email) {
+	async createUser(newUser) {
 		if (!this.uid) return;
 		await setDoc(doc(this.db, 'users', this.uid), {
-			name: name,
-			email: email,
+			name: newUser.name,
+			email: newUser.email,
 			selectedCurriculum: '',
+			summaGWA: newUser.summaGWA,
+			magnaGWA: newUser.magnaGWA,
+			laudeGWA: newUser.laudeGWA,
 		});
 	}
 
@@ -79,6 +82,15 @@ export class FirestoreHelper {
 	async setSelectedCurriculum(curriculumId) {
 		if (!this.uid) return;
 		await updateDoc(doc(this.db, 'users', this.uid), { selectedCurriculum: curriculumId });
+	}
+
+	async setGWARequired(user) {
+		if (!this.uid) return;
+		await updateDoc(doc(this.db, 'users', this.uid), {
+			summaGWA: user.summaGWA,
+			magnaGWA: user.magnaGWA,
+			laudeGWA: user.laudeGWA,
+		});
 	}
 
 	async shareCurriculum(curriculumId, curriculum) {

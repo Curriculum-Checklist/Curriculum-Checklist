@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import addCircularImg from '../assets/add_circular.svg';
 import GetCurriculumBanner from '../components/GetCurriculumBanner';
 import SemCard from '../components/SemCard';
@@ -18,6 +18,8 @@ import EditCourseModal from '../components/EditCourseModal';
 import EditSemInfoModal from '../components/EditSemInfoModal';
 import { PieChart } from 'react-minimal-pie-chart';
 import EditRequiredGWAModal from '../components/EditRequiredGWAModal';
+import Course from '../classes/course';
+import notify from '../function/notify';
 
 const editingCurriculum = new Curriculum();
 
@@ -26,6 +28,7 @@ export const DashboardContext = React.createContext();
 export default function Dashboard() {
 	const { user, curriculum } = useDatabase();
 	const [editMode, setEditMode] = useState(false);
+	const [buttonStatus, setButtonStatus] = useState('default');
 
 	//! Curriculum Editing
 	const [showEditCurriculumInfoModal, setShowEditCurriculumInfoModal] = useState(false);
@@ -51,12 +54,6 @@ export default function Dashboard() {
 			setSems(curriculumCopy.semesters);
 		}
 	}, [curriculum]);
-	//! GWA Editing
-	const [showEditRequiredGWAModal, setShowEditRequiredGWAModal] = useState(false);
-	const summaGWA = LocalStorageHelper.get('summa', 1.20)
-	const magnaGWA = LocalStorageHelper.get('magna', 1.45)
-	const laudeGWA = LocalStorageHelper.get('laude', 1.75)
-	
 
 	const addSem = () => {
 		const title = sems.length === 0 ? '1Y-1S' : getNextSem(sems[sems.length - 1].title);
@@ -84,6 +81,7 @@ export default function Dashboard() {
 	}
 
 	async function saveChanges() {
+		setButtonStatus('loading');
 		curriculum.copyFrom(editingCurriculum);
 		try {
 			await firestoreHelper.setCurriculum(user.selectedCurriculum, curriculum);
@@ -96,12 +94,7 @@ export default function Dashboard() {
 
 		setCurriculumTo(curriculum);
 		setEditMode(false);
-	}
-
-	function saveGWA(newSummaGWA, newMagnaGWA, newLaudeGWA){
-		LocalStorageHelper.set('laude', newLaudeGWA);
-		LocalStorageHelper.set('summa', newSummaGWA);
-		LocalStorageHelper.set('magna', newMagnaGWA);
+		setButtonStatus('default');
 	}
 
 	function updateCurriculumInfo(newProgramName, newSchoolName) {
@@ -127,91 +120,7 @@ export default function Dashboard() {
 	//TODO - use dropdown to notify user on failed logout
 	if (!curriculum) {
 		return <div className={styles.container}>{!curriculum && <GetCurriculumBanner />}</div>;
-	};
-	
-	// For GWA Computation
-	var GWA = 0;
-	var GradePerUnit = 0;
-	var TotalUnits = 0;
-	var g100 = 0;
-	var g125 = 0;
-	var g150 = 0;
-	var g175 = 0;
-	var g200 = 0;
-	var g225 = 0;
-	var g250 = 0;
-	var g275 = 0;
-	var g300 = 0;
-	var g400 = 0;
-	var g500 = 0;
-
-	const computeGWA = () => {
-		sems.map((sem) => (
-			sem.courses.map((course) => (
-				ifValidGrade(course)
-			))
-		))
-		GWA = GradePerUnit / TotalUnits;
 	}
-
-	const ifValidGrade = (course) => {
-		if (['1.00', '1.25', '1.50', '1.75', '2.00', '2.25', '2.50', '2.75', '3.00', '4.00', '5.00'].includes(course.grade) &&
-			course.requiredGrade === true) {
-			GradePerUnit = GradePerUnit + (parseFloat(course.grade) * parseFloat(course.units));
-			TotalUnits = TotalUnits + parseFloat(course.units);
-
-			if (course.grade === '1.00') {
-				g100 = g100 + 1;
-			}
-
-			if (course.grade === '1.25') {
-				g125 = g125 + 1;
-			}
-			
-			if (course.grade === '1.50') {
-				g150 = g150 + 1;
-			}
-			
-			if (course.grade === '1.75') {
-				g175 = g175 + 1;
-			}
-			
-			if (course.grade === '2.00') {
-				g200 = g200 + 1;
-			}
-			
-			if (course.grade === '2.25') {
-				g225 = g225 + 1;
-			}
-			
-			if (course.grade === '2.50') {
-				g250 = g250 + 1;
-			}
-			
-			if (course.grade === '2.75') {
-				g275 = g275 + 1;
-			}
-			
-			if (course.grade === '3.00') {
-				g300 = g300 + 1;
-			}
-			
-			if (course.grade === '4.00') {
-				g400 = g400 + 1;
-			}
-			
-			if (course.grade === '5.00') {
-				g500 = g500 + 1;
-			}
-			
-		}
-	}
-
-	const hasGrade = (dataEntry) => {
-		if (dataEntry.value > 0) {
-			return (dataEntry.title)
-		}
-	} 
 
 	return (
 		<DashboardContext.Provider
@@ -235,111 +144,211 @@ export default function Dashboard() {
 				setShowEditCourseModal,
 				selectedCourse,
 				setSelectedCourse,
-
-				//! GWA editing
-				showEditRequiredGWAModal,
-				setShowEditRequiredGWAModal,
-				summaGWA, magnaGWA, laudeGWA
 			}}>
 			<div className={styles.container}>
-				<div className={styles.programNameWrapper}>
-					<h1>{programName}</h1>
-					{editMode && (
-						<img
-							className='pencilGreenImg'
-							src={pencilGreenImg}
-							alt='Edit Program Name'
-							onClick={() => setShowEditCurriculumInfoModal(true)}
-						/>
-					)}
-				</div>
-				<h5>{schoolName}</h5>
-				{editMode ? (
-					<div className={styles.saveDiscardButtonsWrapper}>
-						<BaseButton label='Discard' color='transparent-ocean-blue' onClick={discardChanges} />
-						<BaseButton label='Save' color='red' onClick={saveChanges} />
-					</div>
-				) : (
-					<BaseButton label='Edit' color='green' icon={pencilWhiteImg} tight onClick={startEditing} />
-				)}
+				<Header
+					onDiscard={discardChanges}
+					onSave={saveChanges}
+					onEdit={startEditing}
+					buttonStatus={buttonStatus}
+				/>
 
-				<div className={styles.grid}>
-					{sems.map((sem, i) => (
-						<SemCard sem={sem} key={i} />
-					))}
-					{editMode && (
-						<div className={clsx(styles.addSemCard, 'unselectable')} onClick={addSem}>
-							<img src={addCircularImg} alt='Add icon' />
-							<h3>Add Sem</h3>
-						</div>
-					)}
-				</div>
-				
-				<div className={styles.viewGWACard}>
-					<div>
-					<p className={styles.gwaTitle}> GWA </p>
-					{computeGWA()}
-					<p className={styles.gwaValue}> {Math.round(GWA * 100) / 100} </p>
-					</div>
-					<div className={styles.gwaChart}>
-						<PieChart
-							data={[
-								{ title: '1.00', value: g100, color: 'red'},
-								{ title: '1.25', value: g125, color: 'blue'},
-								{ title: '1.50', value: g150, color: 'green'},
-								{ title: '1.75', value: g175, color: 'orange'},
-								{ title: '2.00', value: g200, color: 'yellow'},
-								{ title: '2.25', value: g225, color: 'purple'},
-								{ title: '2.50', value: g250, color: 'pink'},
-								{ title: '2.75', value: g275, color: 'brown'},
-								{ title: '3.00', value: g300, color: 'white'},
-								{ title: '4.00', value: g400, color: 'gray'},
-								{ title: '5.00', value: g500, color: 'black'},
-							]}
-							lineWidth={15}
-							label={({ dataEntry }) => hasGrade(dataEntry)}
-							labelStyle={() => ({
-								fill: 'white',
-								fontSize: '10px',
-								fontFamily: 'sans-serif',
-							})}
-							radius={25}
-							labelPosition={120}
-						/>
-					</div>
-				</div>
-				{/* GWA Required Card} */}
-				<div className={styles.reqGWACard}>
-					<p className={styles.gwaTitle}>GWA Required   
-					{editMode && (
-						<img
-							className='pencilGreenImg'
-							src={pencilGreenImg}
-							alt='Edit Required GWA'
-							onClick={() => setShowEditRequiredGWAModal(true)}
-						/>
-					)}
+				<SemesterGrid sems={sems} onAddSemClick={addSem} />
 
-					</p>
-					<div className={styles.honorDiv}>
-						<div className={styles.honorCol}>
-							<p>Summa Cum Laude</p>
-							<p>Magna Cum Laude</p>
-							<p>Cum Laude</p>
-						</div>
-						<div className={styles.honorCol}>
-							<p>{parseFloat(summaGWA).toFixed(2)}</p>
-							<p>{parseFloat(magnaGWA).toFixed(2)}</p>
-							<p>{parseFloat(laudeGWA).toFixed(2)}</p>
-						</div>
-					</div>
-				</div>
+				<GWAWrapper sems={sems} />
 
+				{/* MODALS */}
 				<EditCurriculumInfoModal onSave={updateCurriculumInfo} />
 				<EditSemInfoModal onSave={updateSemInfo} />
 				<EditCourseModal onSave={updateCourse} />
-				<EditRequiredGWAModal onSave={saveGWA} />
 			</div>
 		</DashboardContext.Provider>
+	);
+}
+
+export const GWAWrapperContext = React.createContext();
+
+function GWAWrapper() {
+	const { user, setUser } = useDatabase();
+	const { firestoreHelper } = useFirestore();
+
+	const GWA = user.computeGWA();
+	const gradesCounter = user.getGradesCounter();
+	const standing = user.getStanding(GWA);
+
+	const [summaGWA, setSummaGWA] = useState(1.2);
+	const [magnaGWA, setMagnaGWA] = useState(1.45);
+	const [laudeGWA, setLaudeGWA] = useState(1.75);
+
+	useEffect(() => {
+		setSummaGWA(user.summaGWA);
+		setMagnaGWA(user.magnaGWA);
+		setLaudeGWA(user.laudeGWA);
+	}, [user]);
+
+	const [showEditRequiredGWAModal, setShowEditRequiredGWAModal] = useState(false);
+
+	async function saveGWA(newSummaGWA, newMagnaGWA, newLaudeGWA) {
+		const newUser = user.duplicate();
+		newUser.summaGWA = newSummaGWA;
+		newUser.magnaGWA = newMagnaGWA;
+		newUser.laudeGWA = newLaudeGWA;
+		LocalStorageHelper.set('user', newUser);
+
+		setUser(newUser);
+		try {
+			await firestoreHelper.setGWARequired(newUser);
+		} catch (e) {
+			console.log('Failed to save GWA online', e.message);
+			notify('Failed to save GWA online');
+		}
+	}
+
+	return (
+		<GWAWrapperContext.Provider
+			value={{
+				showEditRequiredGWAModal,
+				setShowEditRequiredGWAModal,
+				summaGWA,
+				magnaGWA,
+				laudeGWA,
+				GWA,
+				gradesCounter,
+				standing,
+			}}>
+			<div className={styles.GWAWrapperContainer}>
+				<ViewGWACard />
+				<ReqGWACard />
+				<EditRequiredGWAModal onSave={saveGWA} />;
+			</div>
+		</GWAWrapperContext.Provider>
+	);
+}
+
+function ViewGWACard() {
+	const { GWA, gradesCounter } = useContext(GWAWrapperContext);
+	const hasGrade = (dataEntry) => {
+		if (dataEntry.value > 0) {
+			return dataEntry.title;
+		}
+	};
+
+	return (
+		<div className={styles.viewGWACard}>
+			<div>
+				<p className={styles.gwaTitle}> GWA </p>
+				<p className={styles.gwaValue}> {GWA} </p>
+			</div>
+			<div className={styles.gwaChart}>
+				<PieChart
+					data={Course.numericalGradeOptions.map((gradeOption) => ({
+						title: gradeOption,
+						value: gradesCounter[gradeOption],
+						color: Course.numericalGradeToColor[gradeOption],
+					}))}
+					lineWidth={15}
+					label={({ dataEntry }) => hasGrade(dataEntry)}
+					labelStyle={() => ({
+						fill: 'white',
+						fontSize: '0.5rem',
+						fontFamily: 'sans-serif',
+					})}
+					radius={25}
+					labelPosition={120}
+				/>
+			</div>
+		</div>
+	);
+}
+
+function ReqGWACard() {
+	const { editMode } = useContext(DashboardContext);
+	const { setShowEditRequiredGWAModal, summaGWA, magnaGWA, laudeGWA, standing } = useContext(GWAWrapperContext);
+
+	return (
+		<div className={styles.reqGWACard}>
+			<p className={styles.gwaTitle}>
+				GWA Required
+				{editMode && (
+					<img
+						className='pencilGreenImg'
+						src={pencilGreenImg}
+						alt='Edit Required GWA'
+						onClick={() => setShowEditRequiredGWAModal(true)}
+					/>
+				)}
+			</p>
+			<div className={styles.honorDiv}>
+				<div className={clsx(styles.honorRow, standing === 'summa' && styles.selectedHonorRow)}>
+					<p>Summa Cum Laude</p>
+					<p>{parseFloat(summaGWA).toFixed(2)}</p>
+				</div>
+				<div className={clsx(styles.honorRow, standing === 'magna' && styles.selectedHonorRow)}>
+					<p>Magna Cum Laude</p>
+					<p>{parseFloat(magnaGWA).toFixed(2)}</p>
+				</div>
+				<div className={clsx(styles.honorRow, standing === 'laude' && styles.selectedHonorRow)}>
+					<p>Cum Laude</p>
+					<p>{parseFloat(laudeGWA).toFixed(2)}</p>
+				</div>
+			</div>
+		</div>
+	);
+}
+
+function SemesterGrid({ sems, onAddSemClick }) {
+	const { editMode } = useContext(DashboardContext);
+	return (
+		<div className={styles.grid}>
+			{sems.map((sem, i) => (
+				<SemCard sem={sem} key={i} />
+			))}
+			{editMode && (
+				<div className={clsx(styles.addSemCard, 'unselectable')} onClick={onAddSemClick}>
+					<img src={addCircularImg} alt='Add icon' />
+					<h3>Add Sem</h3>
+				</div>
+			)}
+		</div>
+	);
+}
+
+function Header({ onDiscard, onSave, onEdit, buttonStatus }) {
+	const { programName, schoolName, editMode, setShowEditCurriculumInfoModal } = useContext(DashboardContext);
+	return (
+		<div>
+			<div className={styles.programNameWrapper}>
+				<h1>{programName}</h1>
+				{editMode && (
+					<img
+						className='pencilGreenImg'
+						src={pencilGreenImg}
+						alt='Edit Program Name'
+						onClick={() => setShowEditCurriculumInfoModal(true)}
+					/>
+				)}
+			</div>
+			<h5>{schoolName}</h5>
+			{editMode ? (
+				<div className={styles.saveDiscardButtonsWrapper}>
+					<BaseButton
+						label='Discard'
+						color='transparent-ocean-blue'
+						onClick={onDiscard}
+						disabled={buttonStatus === 'loading'}
+					/>
+					<BaseButton label='Save' color='red' onClick={onSave} disabled={buttonStatus === 'loading'} />
+				</div>
+			) : (
+				<BaseButton
+					label='Edit'
+					color='green'
+					icon={pencilWhiteImg}
+					tight
+					onClick={onEdit}
+					disabled={buttonStatus === 'loading'}
+				/>
+			)}
+		</div>
 	);
 }
