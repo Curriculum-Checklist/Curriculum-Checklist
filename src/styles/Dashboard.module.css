@@ -61,6 +61,11 @@
     margin-top: 30px; */
 }
 
+.GWAWrapperContainer {
+    display: flex;
+    gap: 100px;
+}
+
 .viewGWACard {
     height: 200px;
     width: 400px;
@@ -69,12 +74,11 @@
     margin-top: 50px;
     outline: none;
     border: none;
-    background-image: linear-gradient(to right, black, rgb(57, 57, 57));
+    background-image: linear-gradient(to right, var(--gray-5), var(--gray-3));
     font-size: 1.8rem;
     display: flex;
     flex-direction: row;
     align-items: left;
-    cursor: pointer;
     transition: all 0.1s linear;
     justify-content: space-between;
 }
@@ -87,19 +91,17 @@
     margin-top: 50px;
     outline: none;
     border: none;
-    background-image: linear-gradient(to right, black, rgb(57, 57, 57));
+    background-image: linear-gradient(to right, var(--gray-5), var(--gray-3));
     font-size: 1.8rem;
     display: flex;
     flex-direction: column;
     align-items: left;
     justify-content: center;
-    cursor: pointer;
     transition: all 0.1s linear;
 }
 
 .gwaTitle {
-    padding-top: 10px;
-    padding-left: 15px;
+    padding: 10px 15px;
     font-size: 1.5rem;
 }
 
@@ -115,7 +117,6 @@
     flex-direction: column;
     align-items: left;
     justify-content: center;
-    cursor: pointer;
     transition: all 0.1s linear;
 }
 
@@ -123,21 +124,33 @@
     padding-bottom: 6px;
     padding-top: 10px;
     padding-left: 15px;
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
     display: flex;
     justify-content: space-between;
 }
 
-.honorCol {
-    margin: 4px;
-    padding-left: 15px;
-    font-size: 0.9rem;
+
+
+.honorDiv {
     display: flex;
     flex-direction: column;
-    padding-right: 80px;
 }
 
-.honorDiv{
-    display:flex;
-    flex-direction: row;
+.honorRow {
+    width: 85%;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2px 15px;
+    padding: 4px 5px;
+    border-radius: 4px;
+}
+
+.honorDiv p {
+    margin: 0;
+}
+
+.selectedHonorRow {
+    background-image: linear-gradient(to right, var(--red-alpha-theme), var(--gray-3));
 }

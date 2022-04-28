@@ -36,7 +36,7 @@ const Intro = () => {
 		const newUser = new User(name, currentUser.email, '', {});
 		LocalStorageHelper.set('user', newUser);
 		try {
-			await firestoreHelper.createUser(name, currentUser.email);
+			await firestoreHelper.createUser(newUser);
 		} catch (e) {
 			console.log('Failed to create user', e.message);
 		}

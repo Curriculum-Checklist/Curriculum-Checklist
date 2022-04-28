@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import Course from '../classes/course';
 import { DashboardContext } from '../pages/Dashboard';
 import BaseDropdown from './BaseDropdown';
 import BaseForm from './BaseForm';
@@ -54,33 +55,10 @@ const EditCourseModal = ({ onSave }) => {
 				actionIsSubmit
 				onClose={closeModal}>
 				<BaseInput label='Code' required ref={codeInputRef} />
-<<<<<<< HEAD
 				<BaseInput label='Title' required ref={titleInputRef} />
-				<BaseInput label='Units' type='number' required ref={unitsInputRef} />
-=======
 				<BaseInput label='Units' type='number' required step='0.5' ref={unitsInputRef} />
->>>>>>> f79d2a727aa98b671d79ad176982a8bc98605661
 				<BaseDropdown label='Status' options={['Not Taken', 'Taking', 'Taken']} ref={statusInputRef} />
-				<BaseDropdown
-					label='Course Grade'
-					options={[
-						'1.00',
-						'1.25',
-						'1.50',
-						'1.75',
-						'2.00',
-						'2.25',
-						'2.50',
-						'2.75',
-						'3.00',
-						'4.00',
-						'5.00',
-						'INC',
-						'DRP',
-						'N/A',
-					]}
-					ref={gradeInputRef}
-				/>
+				<BaseDropdown label='Course Grade' options={Course.gradeOptions} ref={gradeInputRef} />
 				<BaseSlidingBar
 					label='Included in Grade Computation'
 					value={requiredGrade}
