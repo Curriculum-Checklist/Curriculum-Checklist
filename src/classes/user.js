@@ -45,6 +45,8 @@ export default class User {
 			})
 		);
 
+		if (totalUnits === 0) return undefined;
+
 		return Math.round((gradePerUnit / totalUnits) * 100) / 100;
 	}
 

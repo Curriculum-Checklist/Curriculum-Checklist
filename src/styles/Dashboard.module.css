@@ -110,6 +110,12 @@
     font-size: 3rem;
 }
 
+.noGWAText {
+    font-size: 1rem;
+    padding-left: 15px;
+    color: var(--light-gray);
+}
+
 .gwaChart {
     height: 200px;
     width: 200px;

@@ -173,6 +173,7 @@ function GWAWrapper() {
 	const { firestoreHelper } = useFirestore();
 
 	const GWA = user.computeGWA();
+	console.log(GWA);
 	const gradesCounter = user.getGradesCounter();
 	const standing = user.getStanding(GWA);
 
@@ -237,7 +238,11 @@ function ViewGWACard() {
 		<div className={styles.viewGWACard}>
 			<div>
 				<p className={styles.gwaTitle}> GWA </p>
-				<p className={styles.gwaValue}> {GWA} </p>
+				{GWA ? (
+					<p className={styles.gwaValue}> {GWA} </p>
+				) : (
+					<p className={styles.noGWAText}>Please enter your grades in the curriculum to see your GWA</p>
+				)}
 			</div>
 			<div className={styles.gwaChart}>
 				<PieChart
