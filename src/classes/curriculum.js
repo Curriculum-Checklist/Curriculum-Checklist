@@ -92,11 +92,12 @@ export default class Curriculum {
 
 	static fromFirestoreSharedCurriculumData(curriculumData) {
 		const fireBaseTimestampToDate = (time) => new Date(time.seconds * 1000 + time.nanoseconds / 1000000);
+		const firebaseDate = fireBaseTimestampToDate(curriculumData.lastEdit);
 		return new Curriculum(
 			curriculumData.author,
 			curriculumData.programName,
 			curriculumData.schoolName,
-			fireBaseTimestampToDate(curriculumData.lastEdit),
+			isNaN(firebaseDate) ? curriculumData.lastEdit : firebaseDate,
 			false,
 			'',
 			curriculumData.semesters.map((semesterData) => Semester.fromSemesterData(semesterData))
