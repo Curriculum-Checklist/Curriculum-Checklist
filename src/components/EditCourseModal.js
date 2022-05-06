@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Button } from 'react-bootstrap';
 import Course from '../classes/course';
 import { DashboardContext } from '../pages/Dashboard';
 import BaseDropdown from './BaseDropdown';
