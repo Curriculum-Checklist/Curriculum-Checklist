@@ -5,7 +5,7 @@ import styles from '../styles/CourseRow.module.css';
 
 const themeColors = ['red', 'yellow', 'green', 'blue', 'orange'];
 
-const CourseRow = ({ course, index }) => {
+const CourseRow = ({ course, index, sem }) => {
 	const color = themeColors[index % themeColors.length];
 
 	const { editMode, showEditCourseModal, setShowEditCourseModal, setSelectedCourse, setSelectedSem} = useContext(DashboardContext);
@@ -13,6 +13,7 @@ const CourseRow = ({ course, index }) => {
 	const onClick = () => {
 		if (editMode && !showEditCourseModal) {
 			setSelectedCourse(course);
+			setSelectedSem(sem);
 			setShowEditCourseModal(true);
 		}
 	};

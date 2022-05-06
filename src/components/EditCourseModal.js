@@ -33,12 +33,7 @@ const EditCourseModal = ({ onSave, index }) => {
 	};
 
 	const deleteCourse = () => {
-		console.log("HI");
-		console.log(sem);
-		console.log(selected_course)
-
 		var course_list = [];
-
 		for (let i = 0; i < sem.courses.length; i++){
 			if (sem.courses[i] === selected_course){
 				course_list = sem.courses ;
@@ -83,7 +78,7 @@ const EditCourseModal = ({ onSave, index }) => {
 					value={requiredGrade}
 					setValue={setRequiredGrade}
 				/>
-				<Button className={styles.deleteCourse} onClick={deleteCourse}>Delete Course</Button>
+				<div label = "Delete Course" className={styles.deleteCourse} onClick={deleteCourse}>Delete Course</div>
 			</BaseModal>
 		</BaseForm>
 	);

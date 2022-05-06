@@ -9,8 +9,13 @@
 
 .deleteCourse{
     position: relative;
-    margin-left: 71%;
-    background: red;
+    margin-left: 70%;
+    margin-top: 2%;
+    border-radius: 10px;
+    background-color: rgb(189,33,72);
+    text-align: center; 
+    padding: 2.2%;
+    width: 30%;
 }
 
 .clickable {
