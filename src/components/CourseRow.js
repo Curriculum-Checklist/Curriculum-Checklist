@@ -8,7 +8,7 @@ const themeColors = ['red', 'yellow', 'green', 'blue', 'orange'];
 const CourseRow = ({ course, index }) => {
 	const color = themeColors[index % themeColors.length];
 
-	const { editMode, showEditCourseModal, setShowEditCourseModal, setSelectedCourse } = useContext(DashboardContext);
+	const { editMode, showEditCourseModal, setShowEditCourseModal, setSelectedCourse, setSelectedSem} = useContext(DashboardContext);
 
 	const onClick = () => {
 		if (editMode && !showEditCourseModal) {
@@ -16,17 +16,7 @@ const CourseRow = ({ course, index }) => {
 			setShowEditCourseModal(true);
 		}
 	};
-
-	// function changeStatus() {
-	// 	if (course.status === 'Not Taken') {
-	// 		course.status = 'Taking';
-	// 	} else if (course.status === 'Taking') {
-	// 		course.status = 'Taken';
-	// 	} else if (course.status === 'Taken') {
-	// 		course.status = 'Not Taken';
-	// 	}
-	// }
-
+	
 	return (
 		<div
 			className={clsx(styles.container, editMode && !showEditCourseModal && [styles.clickable, 'unselectable'])}

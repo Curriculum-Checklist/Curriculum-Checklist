@@ -126,7 +126,7 @@ export default function Dashboard() {
 		<DashboardContext.Provider
 			value={{
 				editMode,
-
+				setSems,
 				//! Curriculum editing
 				showEditCurriculumInfoModal,
 				setShowEditCurriculumInfoModal,

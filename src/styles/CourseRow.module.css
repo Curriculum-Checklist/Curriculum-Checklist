@@ -7,6 +7,11 @@
     transition: all 0.1s linear;
 }
 
+.deleteCourse{
+    position: relative;
+    margin-left: 71%;
+    background: red;
+}
 
 .clickable {
     cursor: pointer;
