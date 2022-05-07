@@ -138,6 +138,7 @@ export default function Dashboard() {
 				setShowEditSemInfoModal,
 				selectedSem,
 				setSelectedSem,
+				editingCurriculum,
 
 				//! Course editing
 				showEditCourseModal,
