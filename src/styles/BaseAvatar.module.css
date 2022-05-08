@@ -1,0 +1,14 @@
+.container {
+    background: 'transparent';
+    display: 'flex';
+    justify-content: 'center';
+    align-items: 'center';
+    color: '#28272C';
+    font-size: 40;
+    font-weight: 'bolder';
+    margin: 30px 0;
+}
+
+.avatar {
+    border-radius: 50%;
+}
