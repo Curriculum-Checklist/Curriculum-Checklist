@@ -5,28 +5,19 @@ import styles from '../styles/CourseRow.module.css';
 
 const themeColors = ['red', 'yellow', 'green', 'blue', 'orange'];
 
-const CourseRow = ({ course, index }) => {
+const CourseRow = ({ course, index, sem }) => {
 	const color = themeColors[index % themeColors.length];
 
-	const { editMode, showEditCourseModal, setShowEditCourseModal, setSelectedCourse } = useContext(DashboardContext);
+	const { editMode, showEditCourseModal, setShowEditCourseModal, setSelectedCourse, setSelectedSem} = useContext(DashboardContext);
 
 	const onClick = () => {
 		if (editMode && !showEditCourseModal) {
 			setSelectedCourse(course);
+			setSelectedSem(sem);
 			setShowEditCourseModal(true);
 		}
 	};
-
-	// function changeStatus() {
-	// 	if (course.status === 'Not Taken') {
-	// 		course.status = 'Taking';
-	// 	} else if (course.status === 'Taking') {
-	// 		course.status = 'Taken';
-	// 	} else if (course.status === 'Taken') {
-	// 		course.status = 'Not Taken';
-	// 	}
-	// }
-
+	
 	return (
 		<div
 			className={clsx(styles.container, editMode && !showEditCourseModal && [styles.clickable, 'unselectable'])}

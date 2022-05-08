@@ -6,8 +6,9 @@ import BaseForm from './BaseForm';
 import BaseInput from './BaseInput';
 import BaseModal from './BaseModal';
 import BaseSlidingBar from './BaseSlidingBar';
+import styles from '../styles/CourseRow.module.css';
 
-const EditCourseModal = ({ onSave }) => {
+const EditCourseModal = ({ onSave, index }) => {
 	const codeInputRef = useRef();
 	const titleInputRef = useRef();
 	const unitsInputRef = useRef();
@@ -15,7 +16,7 @@ const EditCourseModal = ({ onSave }) => {
 	const gradeInputRef = useRef();
 	const [requiredGrade, setRequiredGrade] = useState(true);
 
-	const { showEditCourseModal: show, setShowEditCourseModal, selectedCourse: course } = useContext(DashboardContext);
+	const { showEditCourseModal: show, setShowEditCourseModal, selectedCourse: selected_course, selectedSem: sem, setSems} = useContext(DashboardContext);
 
 	const submitCourse = (e) => {
 		e.preventDefault();
@@ -30,20 +31,32 @@ const EditCourseModal = ({ onSave }) => {
 		closeModal();
 	};
 
+	const deleteCourse = () => {
+		var course_list = [];
+		for (let i = 0; i < sem.courses.length; i++){
+			if (sem.courses[i] === selected_course){
+				course_list = sem.courses ;
+				course_list.splice(i,1);
+				sem.courses = course_list;
+			}
+		}
+		setSems((sems)=>sems.map((sem) => sem.duplicate()));
+	}
+
 	const closeModal = () => {
 		setShowEditCourseModal(false);
 	};
 
 	useEffect(() => {
-		if (course) {
-			codeInputRef.current.value = course.code;
-			titleInputRef.current.value = course.title;
-			unitsInputRef.current.value = course.units;
-			statusInputRef.current.value = course.status;
-			gradeInputRef.current.value = course.grade;
-			setRequiredGrade(course.requiredGrade);
+		if (selected_course) {
+			codeInputRef.current.value = selected_course.code;
+			titleInputRef.current.value = selected_course.title;
+			unitsInputRef.current.value = selected_course.units;
+			statusInputRef.current.value = selected_course.status;
+			gradeInputRef.current.value = selected_course.grade;
+			setRequiredGrade(selected_course.requiredGrade);
 		}
-	}, [course, show]);
+	}, [selected_course, show]);
 
 	return (
 		<BaseForm onSubmit={submitCourse}>
@@ -64,6 +77,7 @@ const EditCourseModal = ({ onSave }) => {
 					value={requiredGrade}
 					setValue={setRequiredGrade}
 				/>
+				<div label = "Delete Course" className={styles.deleteCourse} onClick={deleteCourse}>Delete Course</div>
 			</BaseModal>
 		</BaseForm>
 	);
