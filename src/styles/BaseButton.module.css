@@ -53,6 +53,11 @@
     border: 1px solid var(--ocean-blue);
 }
 
+.transparent-green {
+    background-color: transparent;
+    border: 1px solid var(--green);
+}
+
 .red {
     background-color: var(--red);
     border: 1px solid var(--red);
