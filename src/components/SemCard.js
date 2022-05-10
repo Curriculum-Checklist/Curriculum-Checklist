@@ -41,7 +41,7 @@ const SemCard = ({ sem }) => {
 			</h2>
 			<Divider horizontalMargin={0} />
 			{courses.map((course, index) => (
-				<CourseRow key={course.title} course={course} index={index} sem={sem} />
+				<CourseRow key={index} course={course} index={index} sem={sem} />
 			))}
 
 			{editMode && (

@@ -5,7 +5,7 @@ const BaseDropdown = forwardRef(({ label, value, options }, ref) => {
 	return (
 		<div className={styles.container}>
 			<label className={styles.label}>{label}</label>
-			<select className={styles.select} ref={ref} value={value}>
+			<select className={styles.select} ref={ref} defaultValue={value}>
 				{options.map((option) => (
 					<option key={option} value={option}>
 						{option}
