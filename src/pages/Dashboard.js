@@ -174,7 +174,6 @@ function GWAWrapper() {
 	const { firestoreHelper } = useFirestore();
 
 	const GWA = user.computeGWA();
-	console.log(GWA);
 	const gradesCounter = user.getGradesCounter();
 	const standing = user.getStanding(GWA);
 
