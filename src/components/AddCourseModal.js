@@ -55,7 +55,7 @@ const AddCourseModal = ({ show, setShowAddCourseModal, addCourse }) => {
 				<BaseInput label='Title' required ref={titleInputRef} />
 				<BaseInput label='Units' type='number' required step='0.5' ref={unitsInputRef} />
 				<BaseDropdown label='Status' options={['Not Taken', 'Taking', 'Taken']} ref={statusInputRef} />
-				<BaseDropdown label='Course Grade' options={Course.gradeOptions} ref={gradeInputRef} />
+				<BaseDropdown label='Course Grade' options={Course.gradeOptions} ref={gradeInputRef} value='N/A' />
 				<BaseSlidingBar
 					label='Included in Grade Computation'
 					value={requiredGrade}
