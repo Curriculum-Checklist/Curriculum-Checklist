@@ -3,7 +3,8 @@ import { DashboardContext } from '../pages/Dashboard';
 import BaseDropdown from './BaseDropdown';
 import BaseForm from './BaseForm';
 import BaseModal from './BaseModal';
-import styles from '../styles/CourseRow.module.css';
+import styles from '../styles/EditSemInfoModal.module.css';
+import deleteImg from '../assets/delete_red.svg';
 
 const EditSemInfoModal = ({ onSave }) => {
 	const semInputRef = useRef();
@@ -24,10 +25,12 @@ const EditSemInfoModal = ({ onSave }) => {
 	};
 
 	const deleteSem = () => {
-		setSems((sems) => sems.filter(function(remainingSem) {
-			return remainingSem !== sem
-		}));
-		var i = editingCurriculum.semesters.indexOf(sem)
+		setSems((sems) =>
+			sems.filter(function (remainingSem) {
+				return remainingSem !== sem;
+			})
+		);
+		var i = editingCurriculum.semesters.indexOf(sem);
 		editingCurriculum.semesters.splice(i, 1);
 		setShow(false);
 	};
@@ -52,6 +55,9 @@ const EditSemInfoModal = ({ onSave }) => {
 				hasCancelButton
 				hasActionButton
 				actionIsSubmit
+				upperRightComponent={
+					<img className={styles.deleteButton} alt='Delete Button' onClick={deleteSem} src={deleteImg} />
+				}
 				onClose={onModalClose}>
 				<BaseDropdown
 					label='Year'
@@ -60,7 +66,6 @@ const EditSemInfoModal = ({ onSave }) => {
 					ref={yearInputRef}
 				/>
 				<BaseDropdown label='Semester' options={['1', '2', 'M']} required ref={semInputRef} />
-				<div label = "Delete Sem" className={styles.deleteCourse} onClick={deleteSem}>Delete Sem</div>
 			</BaseModal>
 		</BaseForm>
 	);

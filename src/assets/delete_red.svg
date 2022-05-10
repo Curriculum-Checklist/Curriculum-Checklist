@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <rect id="rect-1" width="32" height="32" x="0" y="0"/>
+    <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="userSpaceOnUse">
+      <rect width="32" height="32" x="0" y="0" fill="black"/>
+      <use fill="white" xlink:href="#rect-1"/>
+    </mask>
+    <path id="path-4" fill-rule="evenodd" d="M20.66668701 5.3333435H24c.7333374 0 1.33337402.5999756 1.33337402 1.333313C25.33337402 7.3999939 24.7333374 8 24 8H8c-.7333374 0-1.33331299-.6000061-1.33331299-1.3333435S7.2666626 5.3333435 8 5.3333435h3.33337402l.94665528-.94668579C12.52001953 4.14666748 12.86669922 4 13.2133789 4h5.57330323c.34667969 0 .69335937.14666748.9333496.38665771l.94665528.9466858zm-10 22.6666565C9.20001221 28 8 26.80001831 8 25.3333435V12c0-1.46664429 1.2000122-2.6666565 2.66668701-2.6666565H21.333313C22.79998779 9.3333435 24 10.53335572 24 12v13.3333435C24 26.80001832 22.7999878 28 21.33331299 28H10.666687z"/>
+    <mask id="mask-5" x="0" y="0" maskContentUnits="userSpaceOnUse" maskUnits="userSpaceOnUse">
+      <rect width="32" height="32" x="0" y="0" fill="black"/>
+      <use fill="white" xlink:href="#path-4"/>
+    </mask>
+  </defs>
+  <g>
+    <use fill="none" xlink:href="#rect-1"/>
+    <g mask="url(#mask-2)">
+      <path fill="none" d="M0 0h32v32H0V0z"/>
+      <use fill-opacity="0" stroke="rgb(255,51,102)" stroke-linecap="butt" stroke-linejoin="miter" stroke-width="4" mask="url(#mask-5)" xlink:href="#path-4"/>
+    </g>
+  </g>
+</svg>

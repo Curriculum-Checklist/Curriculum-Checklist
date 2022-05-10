@@ -58,6 +58,11 @@
     border: 1px solid var(--green);
 }
 
+.transparent-red {
+    background-color: transparent;
+    border: 1px solid var(--red);
+}
+
 .red {
     background-color: var(--red);
     border: 1px solid var(--red);
