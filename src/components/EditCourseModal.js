@@ -6,7 +6,8 @@ import BaseForm from './BaseForm';
 import BaseInput from './BaseInput';
 import BaseModal from './BaseModal';
 import BaseSlidingBar from './BaseSlidingBar';
-import styles from '../styles/CourseRow.module.css';
+import deleteImg from '../assets/delete_red.svg';
+import styles from '../styles/EditCourseModal.module.css';
 
 const EditCourseModal = ({ onSave, index }) => {
 	const codeInputRef = useRef();
@@ -16,7 +17,13 @@ const EditCourseModal = ({ onSave, index }) => {
 	const gradeInputRef = useRef();
 	const [requiredGrade, setRequiredGrade] = useState(true);
 
-	const { showEditCourseModal: show, setShowEditCourseModal, selectedCourse: selected_course, selectedSem: sem, setSems} = useContext(DashboardContext);
+	const {
+		showEditCourseModal: show,
+		setShowEditCourseModal,
+		selectedCourse: selected_course,
+		selectedSem: sem,
+		setSems,
+	} = useContext(DashboardContext);
 
 	const submitCourse = (e) => {
 		e.preventDefault();
@@ -33,15 +40,16 @@ const EditCourseModal = ({ onSave, index }) => {
 
 	const deleteCourse = () => {
 		var course_list = [];
-		for (let i = 0; i < sem.courses.length; i++){
-			if (sem.courses[i] === selected_course){
-				course_list = sem.courses ;
-				course_list.splice(i,1);
+		for (let i = 0; i < sem.courses.length; i++) {
+			if (sem.courses[i] === selected_course) {
+				course_list = sem.courses;
+				course_list.splice(i, 1);
 				sem.courses = course_list;
 			}
 		}
-		setSems((sems)=>sems.map((sem) => sem.duplicate()));
-	}
+		setSems((sems) => sems.map((sem) => sem.duplicate()));
+		closeModal();
+	};
 
 	const closeModal = () => {
 		setShowEditCourseModal(false);
@@ -66,6 +74,9 @@ const EditCourseModal = ({ onSave, index }) => {
 				hasCancelButton
 				hasActionButton
 				actionIsSubmit
+				upperRightComponent={
+					<img className={styles.deleteButton} alt='Delete Button' onClick={deleteCourse} src={deleteImg} />
+				}
 				onClose={closeModal}>
 				<BaseInput label='Code' required ref={codeInputRef} />
 				<BaseInput label='Title' required ref={titleInputRef} />
@@ -77,7 +88,6 @@ const EditCourseModal = ({ onSave, index }) => {
 					value={requiredGrade}
 					setValue={setRequiredGrade}
 				/>
-				<div label = "Delete Course" className={styles.deleteCourse} onClick={deleteCourse}>Delete Course</div>
 			</BaseModal>
 		</BaseForm>
 	);

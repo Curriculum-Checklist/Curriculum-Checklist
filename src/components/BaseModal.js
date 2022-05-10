@@ -14,6 +14,7 @@ const BaseModal = ({
 	onActionButtonClick,
 	actionButtonText = 'Save',
 	actionButtonColor = 'red',
+	upperRightComponent,
 }) => {
 	return (
 		<div className={clsx(styles.modal, show && styles.show)}>
@@ -21,6 +22,7 @@ const BaseModal = ({
 			<div className={styles.modalContent}>
 				<div className={styles.modalHeader}>
 					<h4 className={styles.modalTitle}> {title} </h4>
+					{upperRightComponent && <div className={styles.upperRightComponent}>{upperRightComponent}</div>}
 				</div>
 
 				<div className={styles.modalBody}>{children}</div>
